@@ -1,4 +1,4 @@
-/* eslint max-len: 0 */
+/* eslint-disable */
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'oton-bootstrap-table';
 
@@ -24,8 +24,16 @@ export default class SimpleNavTable extends React.Component {
     const selectRow = {
       mode: 'checkbox'
     };
+
+    const options = {
+      onRowClick: () => console.log('CLOICOU!')
+    }
+
+    const keyBoardNav = {
+      clickToNav: true
+    }
     return (
-      <BootstrapTable data={ products } selectRow={ selectRow } keyBoardNav>
+      <BootstrapTable data={ products } selectRow={ selectRow } keyBoardNav={ keyBoardNav } options={options}>
           <TableHeaderColumn dataField='id' isKey={ true }>Product ID</TableHeaderColumn>
           <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
           <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>

@@ -14,7 +14,8 @@ class TableRow extends Component {
   rowClick = e => {
     const rowIndex = this.props.index + 1;
     const cellIndex = e.target.cellIndex;
-    if (this.props.onRowClick) this.props.onRowClick(rowIndex, cellIndex);
+    console.log('CLICOU NO TR')
+    if (this.props.onRowClick) this.props.onRowClick(rowIndex, cellIndex, e);
     const {
       selectRow, unselectableRow, isSelected, onSelectRow, onExpandRow, dbClickToEdit
     } = this.props;
@@ -23,6 +24,7 @@ class TableRow extends Component {
         this.clickNum++;
 
         setTimeout(() => {
+          console.log(this.clickNum)
           if (this.clickNum === 1) {
             onSelectRow(rowIndex, !isSelected, e);
           } else if(this.clickNum > 1) {

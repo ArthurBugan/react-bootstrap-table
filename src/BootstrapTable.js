@@ -833,7 +833,6 @@ class BootstrapTable extends Component {
   }
 
   handleSelectRow = (row, isSelected, e, rowIndex) => {
-    console.log('Selecionou!')
     let result = true;
     let currSelected = this.store.getSelectedRowKeys();
     const rowKey = row[ this.store.getKeyField() ];

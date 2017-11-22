@@ -313,11 +313,12 @@ class TableBody extends Component {
     this.props.onRowMouseOver(targetRow, event);
   }
 
-  handleRowClick = (rowIndex, cellIndex) => {
+  handleRowClick = (rowIndex, cellIndex, e) => {
     const { onRowClick, selectRow } = this.props;
     if (Utils.isSelectRowDefined(selectRow.mode)) cellIndex--;
     if (this._isExpandColumnVisible()) cellIndex--;
-    onRowClick(this.props.data[rowIndex - 1], rowIndex - 1, cellIndex);
+    onRowClick(this.props.data[rowIndex - 1], rowIndex - 1, cellIndex, e);
+    this.handleSelectRow(rowIndex, true, e);
   }
 
   handleRowDoubleClick = rowIndex => {
@@ -326,7 +327,7 @@ class TableBody extends Component {
     onRowDoubleClick(targetRow);
   }
 
-  // Essa é a função que é chamada para fazer o click
+  // Essa é a função que é chamada para fazer o select
   handleSelectRow = (rowIndex, isSelected, e) => {
     let selectedRow;
     const { data, onSelectRow } = this.props;

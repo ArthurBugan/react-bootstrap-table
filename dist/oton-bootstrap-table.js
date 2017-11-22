@@ -1378,7 +1378,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleSelectRow__REACT_HOT_LOADER__',
 	    value: function __handleSelectRow__REACT_HOT_LOADER__(row, isSelected, e, rowIndex) {
-	      console.log('Selecionou!');
 	      var result = true;
 	      var currSelected = this.store.getSelectedRowKeys();
 	      var rowKey = row[this.store.getKeyField()];
@@ -7577,20 +7576,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, {
 	    key: '__handleRowClick__REACT_HOT_LOADER__',
-	    value: function __handleRowClick__REACT_HOT_LOADER__(rowIndex, cellIndex) {
+	    value: function __handleRowClick__REACT_HOT_LOADER__(rowIndex, cellIndex, e) {
 	      var _props3 = this.props,
 	          onRowClick = _props3.onRowClick,
 	          selectRow = _props3.selectRow;
 
 	      if (_util2.default.isSelectRowDefined(selectRow.mode)) cellIndex--;
 	      if (this._isExpandColumnVisible()) cellIndex--;
-	      onRowClick(this.props.data[rowIndex - 1], rowIndex - 1, cellIndex);
+	      onRowClick(this.props.data[rowIndex - 1], rowIndex - 1, cellIndex, e);
+	      this.handleSelectRow(rowIndex, true, e);
 	    }
 	  }, {
 	    key: '__handleRowDoubleClick__REACT_HOT_LOADER__',
 
 
-	    // Essa é a função que é chamada para fazer o click
+	    // Essa é a função que é chamada para fazer o select
 	    value: function __handleRowDoubleClick__REACT_HOT_LOADER__(rowIndex) {
 	      var onRowDoubleClick = this.props.onRowDoubleClick;
 
@@ -7991,7 +7991,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var rowIndex = this.props.index + 1;
 	      var cellIndex = e.target.cellIndex;
-	      if (this.props.onRowClick) this.props.onRowClick(rowIndex, cellIndex);
+	      console.log('CLICOU NO TR');
+	      if (this.props.onRowClick) this.props.onRowClick(rowIndex, cellIndex, e);
 	      var _props = this.props,
 	          selectRow = _props.selectRow,
 	          unselectableRow = _props.unselectableRow,
@@ -8005,6 +8006,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          this.clickNum++;
 
 	          setTimeout(function () {
+	            console.log(_this2.clickNum);
 	            if (_this2.clickNum === 1) {
 	              onSelectRow(rowIndex, !isSelected, e);
 	            } else if (_this2.clickNum > 1) {
