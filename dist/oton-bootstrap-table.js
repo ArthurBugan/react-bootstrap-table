@@ -807,6 +807,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else {
 	        this.reset();
 	      }
+
+	      console.log(nextProps, this.props);
+	      if (JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+	        if (nextProps.options.page > this.props.options.page) {
+	          this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
+	        } else if (nextProps.options.page < this.props.options.page) {
+	          this.handleNavigateCell({ x: 0, y: -1, flag: 'back' });
+	        }
+	      }
 	    }
 	  }, {
 	    key: 'shouldComponentUpdate',
@@ -1269,18 +1278,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	      }, function () {
 	        if (flag === true) {
+
 	          _this6.handleRowClick(_this6.state.data[y], y, x, e);
 	          _this6.handleSelectRow(_this6.state.data[y], true, e, y);
 	        } else if (flag === 'back') {
 	          console.log('Back');
 	          console.log(_this6.state.data);
-	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
-	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
+	          _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
+	          _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
 	        } else if (flag === 'front') {
 	          console.log('Front');
 	          console.log(_this6.state.data);
-	          _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
-	          _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
+	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
+	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
 	        }
 	      });
 	    }

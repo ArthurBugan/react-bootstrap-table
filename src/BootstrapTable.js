@@ -350,6 +350,15 @@ class BootstrapTable extends Component {
     } else {
       this.reset();
     }
+
+    console.log(nextProps, this.props);
+    if(JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+      if( (nextProps.options.page) > (this.props.options.page) ) {
+        this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
+      } else if( (nextProps.options.page) < (this.props.options.page) ) {
+        this.handleNavigateCell({x: 0, y: -1, flag: 'back'});
+      }
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -754,18 +763,20 @@ class BootstrapTable extends Component {
       };
     }, () => {
         if(flag === true) {
+
           this.handleRowClick(this.state.data[y], y, x, e);
           this.handleSelectRow(this.state.data[y], true, e, y);
         } else if( flag === 'back' ) {
           console.log('Back')
           console.log(this.state.data)
-          this.handleRowClick(this.state.data[0], 0, x, e);
-          this.handleSelectRow(this.state.data[0], true, e, 0)
+          this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
+          this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
         } else if (flag === 'front') {
           console.log('Front')
           console.log(this.state.data)
-          this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
-          this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
+          this.handleRowClick(this.state.data[0], 0, x, e);
+          this.handleSelectRow(this.state.data[0], true, e, 0)
+
           }
         });
   }

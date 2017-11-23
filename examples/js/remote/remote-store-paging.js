@@ -29,10 +29,12 @@ export default class RemoteStorePaging extends React.Component {
 
   onPageChange(page, sizePerPage) {
     const currentIndex = (page - 1) * sizePerPage;
-    this.setState({
-      data: this.products.slice(currentIndex, currentIndex + sizePerPage),
-      currentPage: page
-    });
+    setTimeout( () => {
+      this.setState({
+        data: this.products.slice(currentIndex, currentIndex + sizePerPage),
+        currentPage: page
+      });
+    }, 250);
   }
 
   onSizePerPageList(sizePerPage) {
