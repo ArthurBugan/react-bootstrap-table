@@ -733,20 +733,22 @@ class BootstrapTable extends Component {
     }, () => { this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow(this.state.data[y], true, e, y); } );
   }
 
-  handleRowClick = (row, rowIndex, columnIndex) => {
+  handleRowClick = (row, rowIndex, columnIndex, e) => {
     const { options, keyBoardNav } = this.props;
     if (options.onRowClick) {
       options.onRowClick(row, columnIndex, rowIndex);
       this.setState({
         ...this.state,
-        x: columnIndex,
+        x: 0,
         y: rowIndex,
         reset: false
-      });
+      }, () => console.log(this.state));
 
+      this.handleSelectRow(this.state.data[rowIndex], true, e, rowIndex)
       console.log('CLICOU BOOTSTRAPTABLE.JS 747')
+      console.log(e)
     }
-    if (keyBoardNav) {
+    /*if (keyBoardNav) {
       let { clickToNav } = typeof keyBoardNav === 'object' ? keyBoardNav : {};
       clickToNav = clickToNav === false ? clickToNav : true;
       if (clickToNav) {
@@ -758,7 +760,7 @@ class BootstrapTable extends Component {
           };
         });
       }
-    }
+    }*/
   }
 
   handleRowDoubleClick = row => {

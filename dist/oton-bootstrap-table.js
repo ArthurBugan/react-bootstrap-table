@@ -163,8 +163,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1252,7 +1250,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, {
 	    key: '__handleRowClick__REACT_HOT_LOADER__',
-	    value: function __handleRowClick__REACT_HOT_LOADER__(row, rowIndex, columnIndex) {
+	    value: function __handleRowClick__REACT_HOT_LOADER__(row, rowIndex, columnIndex, e) {
+	      var _this7 = this;
+
 	      var _props3 = this.props,
 	          options = _props3.options,
 	          keyBoardNav = _props3.keyBoardNav;
@@ -1260,20 +1260,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (options.onRowClick) {
 	        options.onRowClick(row, columnIndex, rowIndex);
 	        this.setState(_extends({}, this.state, {
-	          x: columnIndex,
+	          x: 0,
 	          y: rowIndex,
 	          reset: false
-	        }));
+	        }), function () {
+	          return console.log(_this7.state);
+	        });
 
+	        this.handleSelectRow(this.state.data[rowIndex], true, e, rowIndex);
 	        console.log('CLICOU BOOTSTRAPTABLE.JS 747');
+	        console.log(e);
 	      }
-	      if (keyBoardNav) {
-	        var _ref5 = (typeof keyBoardNav === 'undefined' ? 'undefined' : _typeof(keyBoardNav)) === 'object' ? keyBoardNav : {},
-	            clickToNav = _ref5.clickToNav;
-
+	      /*if (keyBoardNav) {
+	        let { clickToNav } = typeof keyBoardNav === 'object' ? keyBoardNav : {};
 	        clickToNav = clickToNav === false ? clickToNav : true;
 	        if (clickToNav) {
-	          this.setState(function () {
+	          this.setState(() => {
 	            return {
 	              x: columnIndex,
 	              y: rowIndex,
@@ -1281,7 +1283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            };
 	          });
 	        }
-	      }
+	      }*/
 	    }
 	  }, {
 	    key: '__handleRowDoubleClick__REACT_HOT_LOADER__',
@@ -1419,7 +1421,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleEditCell__REACT_HOT_LOADER__',
 	    value: function __handleEditCell__REACT_HOT_LOADER__(newVal, rowIndex, colIndex) {
-	      var _this7 = this;
+	      var _this8 = this;
 
 	      var beforeSaveCell = this.props.cellEdit.beforeSaveCell;
 
@@ -1427,9 +1429,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var fieldName = columns[colIndex].name;
 
 	      var invalid = function invalid() {
-	        _this7.setState(function () {
+	        _this8.setState(function () {
 	          return {
-	            data: _this7.store.get(),
+	            data: _this8.store.get(),
 	            reset: false
 	          };
 	        });
@@ -1438,9 +1440,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      if (beforeSaveCell) {
 	        var beforeSaveCellCB = function beforeSaveCellCB(result) {
-	          _this7.refs.body.cancelEditCell();
+	          _this8.refs.body.cancelEditCell();
 	          if (result || result === undefined) {
-	            _this7.editCell(newVal, rowIndex, colIndex);
+	            _this8.editCell(newVal, rowIndex, colIndex);
 	          } else {
 	            invalid();
 	          }
@@ -1501,7 +1503,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleAddRow__REACT_HOT_LOADER__',
 	    value: function __handleAddRow__REACT_HOT_LOADER__(newObj) {
-	      var _this8 = this;
+	      var _this9 = this;
 
 	      var isAsync = false;
 	      var onAddRow = this.props.options.onAddRow;
@@ -1509,7 +1511,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var afterHandleAddRow = function afterHandleAddRow(errMsg) {
 	        if (isAsync) {
-	          _this8.refs.toolbar.afterHandleSaveBtnClick(errMsg);
+	          _this9.refs.toolbar.afterHandleSaveBtnClick(errMsg);
 	        } else {
 	          return errMsg;
 	        }
@@ -1517,19 +1519,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var afterAddRowCB = function afterAddRowCB(errMsg) {
 	        if (typeof errMsg !== 'undefined' && errMsg !== '') return afterHandleAddRow(errMsg);
-	        if (_this8.allowRemote(_Const2.default.REMOTE_INSERT_ROW)) {
-	          if (_this8.props.options.afterInsertRow) {
-	            _this8.props.options.afterInsertRow(newObj);
+	        if (_this9.allowRemote(_Const2.default.REMOTE_INSERT_ROW)) {
+	          if (_this9.props.options.afterInsertRow) {
+	            _this9.props.options.afterInsertRow(newObj);
 	          }
 	          return afterHandleAddRow();
 	        }
 
 	        try {
-	          _this8.store.add(newObj);
+	          _this9.store.add(newObj);
 	        } catch (e) {
 	          return afterHandleAddRow(e.message);
 	        }
-	        _this8._handleAfterAddingRow(newObj, false);
+	        _this9._handleAfterAddingRow(newObj, false);
 	        return afterHandleAddRow();
 	      };
 
@@ -1583,14 +1585,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleDropRow__REACT_HOT_LOADER__',
 	    value: function __handleDropRow__REACT_HOT_LOADER__(rowKeys) {
-	      var _this9 = this;
+	      var _this10 = this;
 
 	      var dropRowKeys = rowKeys ? rowKeys : this.store.getSelectedRowKeys();
 	      // add confirm before the delete action if that option is set.
 	      if (dropRowKeys && dropRowKeys.length > 0) {
 	        if (this.props.options.handleConfirmDeleteRow) {
 	          this.props.options.handleConfirmDeleteRow(function () {
-	            _this9.deleteRow(dropRowKeys);
+	            _this10.deleteRow(dropRowKeys);
 	          }, dropRowKeys);
 	        } else if (confirm('Are you sure you want to delete?')) {
 	          this.deleteRow(dropRowKeys);
@@ -1600,7 +1602,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'deleteRow',
 	    value: function deleteRow(dropRowKeys) {
-	      var _this10 = this;
+	      var _this11 = this;
 
 	      var dropRow = this.store.getRowByKey(dropRowKeys);
 	      var _props$options2 = this.props.options,
@@ -1637,7 +1639,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setState(function () {
 	          return {
 	            data: result,
-	            selectedRowKeys: _this10.store.getSelectedRowKeys(),
+	            selectedRowKeys: _this11.store.getSelectedRowKeys(),
 	            currPage: currPage,
 	            reset: false
 	          };
@@ -1648,7 +1650,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return {
 	            data: result,
 	            reset: false,
-	            selectedRowKeys: _this10.store.getSelectedRowKeys()
+	            selectedRowKeys: _this11.store.getSelectedRowKeys()
 	          };
 	        });
 	      }

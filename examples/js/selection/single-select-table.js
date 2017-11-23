@@ -20,7 +20,7 @@ function addProducts(quantity) {
 addProducts(5);
 
 const selectRowProp = {
-  mode: 'checkbox'
+  mode: 'radio'
 };
 
 const options = {
