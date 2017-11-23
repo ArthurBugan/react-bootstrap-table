@@ -191,7 +191,7 @@ class TableBody extends Component {
                 className={ trClassName }
                 index={ r }
                 row={ data }
-                selectRow={ isSelectRowDefined ? this.props.selectRow : undefined }
+                selectRow={ this.props.selectRow }
                 enableCellEdit={ cellEdit.mode !== Const.CELL_EDIT_NONE }
                 onRowClick={ this.handleRowClick }
                 onRowDoubleClick={ this.handleRowDoubleClick }

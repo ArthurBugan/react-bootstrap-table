@@ -7488,7 +7488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            className: trClassName,
 	            index: r,
 	            row: data,
-	            selectRow: isSelectRowDefined ? this.props.selectRow : undefined,
+	            selectRow: this.props.selectRow,
 	            enableCellEdit: cellEdit.mode !== _Const2.default.CELL_EDIT_NONE,
 	            onRowClick: this.handleRowClick,
 	            onRowDoubleClick: this.handleRowDoubleClick,
@@ -8028,7 +8028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var rowIndex = this.props.index + 1;
 	      var cellIndex = e.target.cellIndex;
-	      if (this.props.onRowClick && selectRow.clickToSelect) this.props.onRowClick(rowIndex, cellIndex, e);
+
 	      var _props = this.props,
 	          selectRow = _props.selectRow,
 	          unselectableRow = _props.unselectableRow,
@@ -8037,12 +8037,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	          onExpandRow = _props.onExpandRow,
 	          dbClickToEdit = _props.dbClickToEdit;
 
+
 	      if (selectRow) {
 	        if (selectRow.clickToSelect && !unselectableRow) {
+
+	          if (this.props.onRowClick) this.props.onRowClick(rowIndex, cellIndex, e);
+
 	          this.clickNum++;
 
 	          setTimeout(function () {
-	            console.log(_this2.clickNum);
 	            if (_this2.clickNum === 1) {
 	              onSelectRow(rowIndex, !isSelected, e);
 	            } else if (_this2.clickNum > 1) {

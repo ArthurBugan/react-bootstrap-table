@@ -19,15 +19,16 @@ class TableRow extends Component {
       selectRow, unselectableRow, isSelected, onSelectRow, onExpandRow, dbClickToEdit
     } = this.props;
 
-    if (this.props.onRowClick && selectRow.clickToSelect)
-      this.props.onRowClick(rowIndex, cellIndex, e);
-
     if (selectRow) {
       if (selectRow.clickToSelect && !unselectableRow) {
+
+        if (this.props.onRowClick)
+          this.props.onRowClick(rowIndex, cellIndex, e);
+
+
         this.clickNum++;
 
         setTimeout(() => {
-          console.log(this.clickNum)
           if (this.clickNum === 1) {
             onSelectRow(rowIndex, !isSelected, e);
           } else if(this.clickNum > 1) {

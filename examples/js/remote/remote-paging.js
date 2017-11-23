@@ -17,7 +17,9 @@ export default class RemotePaging extends React.Component {
                                   sizePerPageList: [ 5, 10 ],
                                   page: this.props.currentPage,
                                   onRowClick: (row) => console.log(row),
-                                  onSizePerPageList: this.props.onSizePerPageList } }>
+                                  onSizePerPageList: this.props.onSizePerPageList } }
+                      selectRow={{ clickToSelect: true}}>
+
         <TableHeaderColumn dataField='id' isKey={ true }>Product ID</TableHeaderColumn>
         <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
         <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
