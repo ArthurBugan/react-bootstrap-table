@@ -1253,19 +1253,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }, function () {
 	        console.log(differ);
 	        console.log(_this6.state.data, _this6.state.oldData);
-	        if (differ && y !== oldY && y < oldY) {
-	          setTimeout(function () {
-	            _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data.length - 1, true, e, y);
-	          }, 500);
+	        if (differ && oldY === -1) {
 	          console.log('Sao diferentes e eu voltei');
+	          setTimeout(function () {
+	            _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], y, x, e);_this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, y);
+	          }, 500);
 	        } else if (differ && y !== oldY && y > oldY) {
 	          console.log('Sao diferentes e eu fui pra frente');
 	          setTimeout(function () {
-	            _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data.length - _this6.state.data.length + 1, true, e, y);
+	            _this6.handleRowClick(_this6.state.data[y], y, x, e);_this6.handleSelectRow(_this6.state.data.length - 1, true, e, y);
 	          }, 500);
 	        } else {
 	          console.log('else');
-	          _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data[y], true, e, y);
+	          _this6.handleRowClick(_this6.state.data[y], y, x, e);_this6.handleSelectRow(_this6.state.data[y], true, e, y);
 	        }
 	        console.log(x, oldX, y, oldY);;
 	      });

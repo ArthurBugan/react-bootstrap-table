@@ -739,15 +739,15 @@ class BootstrapTable extends Component {
     }, () => {
       console.log(differ)
       console.log(this.state.data, this.state.oldData);
-      if(differ && y !== oldY && y < oldY){
-        setTimeout( () => { this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow(this.state.data.length - 1, true, e, y)},500 );
+      if(differ && oldY === -1){
         console.log('Sao diferentes e eu voltei')
+        setTimeout(() => { this.handleRowClick(this.state.data[this.state.data.length - 1], y, x, e); this.handleSelectRow(this.state.data[ this.state.data.length - 1], true, e, y) }, 500 );
       } else if(differ && y !== oldY && y > oldY) {
         console.log('Sao diferentes e eu fui pra frente')
-       setTimeout(() => { this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow((this.state.data.length - this.state.data.length) + 1, true, e, y) }, 500 );
+       setTimeout( () => { this.handleRowClick(this.state.data[y], y, x, e); this.handleSelectRow(this.state.data.length - 1, true, e, y)},500 );
       } else {
         console.log('else')
-        this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow(this.state.data[y], true, e, y)
+        this.handleRowClick(this.state.data[y], y, x, e); this.handleSelectRow(this.state.data[y], true, e, y);
       }
       console.log(x, oldX, y, oldY); ;
     } );
