@@ -244,6 +244,7 @@ class BootstrapTable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+
     this.initTable(nextProps);
     const { options, selectRow } = nextProps;
     let { replace } = nextProps;
@@ -349,6 +350,18 @@ class BootstrapTable extends Component {
     } else {
       this.reset();
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if(JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+      if(nextState.y > this.state.y) {
+        this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
+      } else if(nextState.y < this.state.y) {
+        this.handleNavigateCell({x: 0, y: -1, flag: 'back'});
+      }
+    }
+
+    return true;
   }
 
   componentDidMount() {
@@ -630,7 +643,7 @@ class BootstrapTable extends Component {
     const { onPageChange, pageStartIndex } = this.props.options;
     const emptyTable = this.store.isEmpty();
     if (onPageChange) {
-      onPageChange(page, sizePerPage);
+      let value = onPageChange(page, sizePerPage);
     }
 
     const state = {
@@ -672,7 +685,7 @@ class BootstrapTable extends Component {
     }
   }
 
-  handleNavigateCell = ({ x: offSetX, y: offSetY, lastEditCell }, e) => {
+  handleNavigateCell = ({ x: offSetX, y: offSetY, lastEditCell, flag }, e) => {
     const { pagination } = this.props;
     let { x, y, currPage } = this.state;
     x += offSetX;
@@ -688,7 +701,7 @@ class BootstrapTable extends Component {
       currPage++;
       const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
       if (currPage <= lastPage) {
-        this.handlePaginationData(currPage, this.state.sizePerPage);
+        if(flag) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
         return;
       }
@@ -696,7 +709,7 @@ class BootstrapTable extends Component {
     } else if (y < 0) {
       currPage--;
       if (currPage > 0) {
-        this.handlePaginationData(currPage, this.state.sizePerPage);
+        if(flag) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
         return;
       }
@@ -706,7 +719,7 @@ class BootstrapTable extends Component {
         currPage++;
         const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
         if (currPage <= lastPage) {
-          this.handlePaginationData(currPage, this.state.sizePerPage);
+          if(flag) this.handlePaginationData(currPage, this.state.sizePerPage);
         } else {
           return;
         }
@@ -720,7 +733,7 @@ class BootstrapTable extends Component {
       if (y === 0) {
         currPage--;
         if (currPage > 0) {
-          this.handlePaginationData(currPage, this.state.sizePerPage);
+          if(flag) this.handlePaginationData(currPage, this.state.sizePerPage);
         } else {
           return;
         }
@@ -730,29 +743,23 @@ class BootstrapTable extends Component {
       }
     }
 
-    let differOld = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
-    console.log(differOld)
-    console.log(this.state.data, this.state.oldData);
     this.setState(() => {
       return {
         x, y, currPage, reset: false, oldData: this.state.data
       };
     }, () => {
-      let differ = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
-      console.log(differ)
-      console.log(this.state.data, this.state.oldData);
-      if((differ || differOld) && oldY === -1){
-        console.log('Sao diferentes e eu voltei')
-        setTimeout(() => { this.handleRowClick(this.state.data[this.state.data.length - 1], y, x, e); this.handleSelectRow(this.state.data[ this.state.data.length - 1], true, e, y) }, 100 );
-      } else if(((differ || differOld) && (y !== oldY) && (oldY === this.state.data.length))) {
-        console.log('Sao diferentes e eu fui pra frente')
-       setTimeout( () => { this.handleRowClick(this.state.data[0], y, x, e); this.handleSelectRow(this.state.data[0], true, e, y)},100 );
-      } else {
-        console.log('else')
-        this.handleRowClick(this.state.data[y], y, x, e); this.handleSelectRow(this.state.data[y], true, e, y);
-      }
-      console.log(x, oldX, y, oldY); ;
-    } );
+        if(flag === true) {
+          this.handleRowClick(this.state.data[y], y, x, e);
+          this.handleSelectRow(this.state.data[y], true, e, y);
+        } else if( flag === 'back' ) {
+          this.handleRowClick(this.state.data[0], 0, x, e);
+          this.handleSelectRow(this.state.data[0], true, e, 0)
+
+        } else if (flag === 'front') {
+          this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
+          this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
+          }
+        });
   }
 
   handleRowClick = (row, rowIndex, columnIndex, e) => {
@@ -764,10 +771,9 @@ class BootstrapTable extends Component {
         x: 0,
         y: rowIndex,
         reset: false
-      }, () => console.log(this.state));
+      });
 
       this.handleSelectRow(this.state.data[rowIndex], true, e, rowIndex)
-      console.log('CLICOU BOOTSTRAPTABLE.JS 747')
     }
     /*if (keyBoardNav) {
       let { clickToNav } = typeof keyBoardNav === 'object' ? keyBoardNav : {};

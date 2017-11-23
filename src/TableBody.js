@@ -270,10 +270,9 @@ class TableBody extends Component {
     const rowIndex = e.target.parentElement.rowIndex + 1;
 
     if (e.keyCode === 38) {
-      offset = { x: 0, y: -1 };
+      offset = { x: 0, y: -1, flag: true };
     } else if (e.keyCode === 40) {
-      offset = { x: 0, y: 1 };
-      //this.handleSelectRow(rowIndex, !isSelected, e);
+      offset = { x: 0, y: 1, flag: true };
     } else if (e.keyCode === 13) {
       const enterToEdit = typeof keyBoardNav === 'object' ?
         keyBoardNav.enterToEdit :

@@ -696,6 +696,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
+
 	      this.initTable(nextProps);
 	      var options = nextProps.options,
 	          selectRow = nextProps.selectRow;
@@ -806,6 +807,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else {
 	        this.reset();
 	      }
+	    }
+	  }, {
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      if (JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+	        if (nextState.y > this.state.y) {
+	          this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
+	        } else if (nextState.y < this.state.y) {
+	          this.handleNavigateCell({ x: 0, y: -1, flag: 'back' });
+	        }
+	      }
+
+	      return true;
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -1124,7 +1138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var emptyTable = this.store.isEmpty();
 	      if (onPageChange) {
-	        onPageChange(page, sizePerPage);
+	        var value = onPageChange(page, sizePerPage);
 	      }
 
 	      var state = {
@@ -1180,7 +1194,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var offSetX = _ref4.x,
 	          offSetY = _ref4.y,
-	          lastEditCell = _ref4.lastEditCell;
+	          lastEditCell = _ref4.lastEditCell,
+	          flag = _ref4.flag;
 	      var pagination = this.props.pagination;
 	      var _state = this.state,
 	          x = _state.x,
@@ -1202,7 +1217,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        currPage++;
 	        var lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
 	        if (currPage <= lastPage) {
-	          this.handlePaginationData(currPage, this.state.sizePerPage);
+	          if (flag) this.handlePaginationData(currPage, this.state.sizePerPage);
 	        } else {
 	          return;
 	        }
@@ -1210,7 +1225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else if (y < 0) {
 	        currPage--;
 	        if (currPage > 0) {
-	          this.handlePaginationData(currPage, this.state.sizePerPage);
+	          if (flag) this.handlePaginationData(currPage, this.state.sizePerPage);
 	        } else {
 	          return;
 	        }
@@ -1220,7 +1235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          currPage++;
 	          var _lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
 	          if (currPage <= _lastPage) {
-	            this.handlePaginationData(currPage, this.state.sizePerPage);
+	            if (flag) this.handlePaginationData(currPage, this.state.sizePerPage);
 	          } else {
 	            return;
 	          }
@@ -1234,7 +1249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (y === 0) {
 	          currPage--;
 	          if (currPage > 0) {
-	            this.handlePaginationData(currPage, this.state.sizePerPage);
+	            if (flag) this.handlePaginationData(currPage, this.state.sizePerPage);
 	          } else {
 	            return;
 	          }
@@ -1244,39 +1259,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 
-	      var differOld = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
-	      console.log(differOld);
-	      console.log(this.state.data, this.state.oldData);
 	      this.setState(function () {
 	        return {
 	          x: x, y: y, currPage: currPage, reset: false, oldData: _this6.state.data
 	        };
 	      }, function () {
-	        var differ = JSON.stringify(_this6.state.data) !== JSON.stringify(_this6.state.oldData);
-	        console.log(differ);
-	        console.log(_this6.state.data, _this6.state.oldData);
-	        if ((differ || differOld) && oldY === -1) {
-	          console.log('Sao diferentes e eu voltei');
-	          setTimeout(function () {
-	            _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], y, x, e);_this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, y);
-	          }, 100);
-	        } else if ((differ || differOld) && y !== oldY && oldY === _this6.state.data.length) {
-	          console.log('Sao diferentes e eu fui pra frente');
-	          setTimeout(function () {
-	            _this6.handleRowClick(_this6.state.data[0], y, x, e);_this6.handleSelectRow(_this6.state.data[0], true, e, y);
-	          }, 100);
-	        } else {
-	          console.log('else');
-	          _this6.handleRowClick(_this6.state.data[y], y, x, e);_this6.handleSelectRow(_this6.state.data[y], true, e, y);
+	        if (flag === true) {
+	          _this6.handleRowClick(_this6.state.data[y], y, x, e);
+	          _this6.handleSelectRow(_this6.state.data[y], true, e, y);
+	        } else if (flag === 'back') {
+	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
+	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
+	        } else if (flag === 'front') {
+	          _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
+	          _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
 	        }
-	        console.log(x, oldX, y, oldY);;
 	      });
 	    }
 	  }, {
 	    key: '__handleRowClick__REACT_HOT_LOADER__',
 	    value: function __handleRowClick__REACT_HOT_LOADER__(row, rowIndex, columnIndex, e) {
-	      var _this7 = this;
-
 	      var _props3 = this.props,
 	          options = _props3.options,
 	          keyBoardNav = _props3.keyBoardNav;
@@ -1287,12 +1289,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          x: 0,
 	          y: rowIndex,
 	          reset: false
-	        }), function () {
-	          return console.log(_this7.state);
-	        });
+	        }));
 
 	        this.handleSelectRow(this.state.data[rowIndex], true, e, rowIndex);
-	        console.log('CLICOU BOOTSTRAPTABLE.JS 747');
 	      }
 	      /*if (keyBoardNav) {
 	        let { clickToNav } = typeof keyBoardNav === 'object' ? keyBoardNav : {};
@@ -1444,7 +1443,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleEditCell__REACT_HOT_LOADER__',
 	    value: function __handleEditCell__REACT_HOT_LOADER__(newVal, rowIndex, colIndex) {
-	      var _this8 = this;
+	      var _this7 = this;
 
 	      var beforeSaveCell = this.props.cellEdit.beforeSaveCell;
 
@@ -1452,9 +1451,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var fieldName = columns[colIndex].name;
 
 	      var invalid = function invalid() {
-	        _this8.setState(function () {
+	        _this7.setState(function () {
 	          return {
-	            data: _this8.store.get(),
+	            data: _this7.store.get(),
 	            reset: false
 	          };
 	        });
@@ -1463,9 +1462,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      if (beforeSaveCell) {
 	        var beforeSaveCellCB = function beforeSaveCellCB(result) {
-	          _this8.refs.body.cancelEditCell();
+	          _this7.refs.body.cancelEditCell();
 	          if (result || result === undefined) {
-	            _this8.editCell(newVal, rowIndex, colIndex);
+	            _this7.editCell(newVal, rowIndex, colIndex);
 	          } else {
 	            invalid();
 	          }
@@ -1526,7 +1525,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleAddRow__REACT_HOT_LOADER__',
 	    value: function __handleAddRow__REACT_HOT_LOADER__(newObj) {
-	      var _this9 = this;
+	      var _this8 = this;
 
 	      var isAsync = false;
 	      var onAddRow = this.props.options.onAddRow;
@@ -1534,7 +1533,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var afterHandleAddRow = function afterHandleAddRow(errMsg) {
 	        if (isAsync) {
-	          _this9.refs.toolbar.afterHandleSaveBtnClick(errMsg);
+	          _this8.refs.toolbar.afterHandleSaveBtnClick(errMsg);
 	        } else {
 	          return errMsg;
 	        }
@@ -1542,19 +1541,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var afterAddRowCB = function afterAddRowCB(errMsg) {
 	        if (typeof errMsg !== 'undefined' && errMsg !== '') return afterHandleAddRow(errMsg);
-	        if (_this9.allowRemote(_Const2.default.REMOTE_INSERT_ROW)) {
-	          if (_this9.props.options.afterInsertRow) {
-	            _this9.props.options.afterInsertRow(newObj);
+	        if (_this8.allowRemote(_Const2.default.REMOTE_INSERT_ROW)) {
+	          if (_this8.props.options.afterInsertRow) {
+	            _this8.props.options.afterInsertRow(newObj);
 	          }
 	          return afterHandleAddRow();
 	        }
 
 	        try {
-	          _this9.store.add(newObj);
+	          _this8.store.add(newObj);
 	        } catch (e) {
 	          return afterHandleAddRow(e.message);
 	        }
-	        _this9._handleAfterAddingRow(newObj, false);
+	        _this8._handleAfterAddingRow(newObj, false);
 	        return afterHandleAddRow();
 	      };
 
@@ -1608,14 +1607,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleDropRow__REACT_HOT_LOADER__',
 	    value: function __handleDropRow__REACT_HOT_LOADER__(rowKeys) {
-	      var _this10 = this;
+	      var _this9 = this;
 
 	      var dropRowKeys = rowKeys ? rowKeys : this.store.getSelectedRowKeys();
 	      // add confirm before the delete action if that option is set.
 	      if (dropRowKeys && dropRowKeys.length > 0) {
 	        if (this.props.options.handleConfirmDeleteRow) {
 	          this.props.options.handleConfirmDeleteRow(function () {
-	            _this10.deleteRow(dropRowKeys);
+	            _this9.deleteRow(dropRowKeys);
 	          }, dropRowKeys);
 	        } else if (confirm('Are you sure you want to delete?')) {
 	          this.deleteRow(dropRowKeys);
@@ -1625,7 +1624,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'deleteRow',
 	    value: function deleteRow(dropRowKeys) {
-	      var _this11 = this;
+	      var _this10 = this;
 
 	      var dropRow = this.store.getRowByKey(dropRowKeys);
 	      var _props$options2 = this.props.options,
@@ -1662,7 +1661,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setState(function () {
 	          return {
 	            data: result,
-	            selectedRowKeys: _this11.store.getSelectedRowKeys(),
+	            selectedRowKeys: _this10.store.getSelectedRowKeys(),
 	            currPage: currPage,
 	            reset: false
 	          };
@@ -1673,7 +1672,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return {
 	            data: result,
 	            reset: false,
-	            selectedRowKeys: _this11.store.getSelectedRowKeys()
+	            selectedRowKeys: _this10.store.getSelectedRowKeys()
 	          };
 	        });
 	      }
@@ -7569,10 +7568,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var rowIndex = e.target.parentElement.rowIndex + 1;
 
 	      if (e.keyCode === 38) {
-	        offset = { x: 0, y: -1 };
+	        offset = { x: 0, y: -1, flag: true };
 	      } else if (e.keyCode === 40) {
-	        offset = { x: 0, y: 1 };
-	        //this.handleSelectRow(rowIndex, !isSelected, e);
+	        offset = { x: 0, y: 1, flag: true };
 	      } else if (e.keyCode === 13) {
 	        var enterToEdit = (typeof keyBoardNav === 'undefined' ? 'undefined' : _typeof(keyBoardNav)) === 'object' ? keyBoardNav.enterToEdit : false;
 	        var enterToExpand = (typeof keyBoardNav === 'undefined' ? 'undefined' : _typeof(keyBoardNav)) === 'object' ? keyBoardNav.enterToExpand : false;
