@@ -353,10 +353,11 @@ class BootstrapTable extends Component {
 
     console.log(nextProps, this.props);
     if(JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+      console.log('Sao diferentes!')
+      console.log(this.props.options.page)
+      console.log(nextProps.options.page)
       if( (nextProps.options.page) > (this.props.options.page) ) {
         console.log('Entrou no will recieve props do front')
-        console.log(this.props.options.page)
-        console.log(nextProps.options.page)
         this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
       } else if( (nextProps.options.page) < (this.props.options.page) ) {
         console.log('Entrou no will recieve props do back')
