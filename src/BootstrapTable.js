@@ -354,6 +354,7 @@ class BootstrapTable extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if(JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+      console.log(this.state.y, nextState.y);
       if(nextState.y > this.state.y) {
         this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
       } else if(nextState.y < this.state.y) {
@@ -752,10 +753,13 @@ class BootstrapTable extends Component {
           this.handleRowClick(this.state.data[y], y, x, e);
           this.handleSelectRow(this.state.data[y], true, e, y);
         } else if( flag === 'back' ) {
+          console.log('Back')
+          console.log(this.state.data)
           this.handleRowClick(this.state.data[0], 0, x, e);
           this.handleSelectRow(this.state.data[0], true, e, 0)
-
         } else if (flag === 'front') {
+          console.log('Front')
+          console.log(this.state.data)
           this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
           this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
           }

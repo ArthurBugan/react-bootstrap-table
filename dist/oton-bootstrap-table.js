@@ -812,6 +812,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
 	      if (JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+	        console.log(this.state.y, nextState.y);
 	        if (nextState.y > this.state.y) {
 	          this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
 	        } else if (nextState.y < this.state.y) {
@@ -1268,9 +1269,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _this6.handleRowClick(_this6.state.data[y], y, x, e);
 	          _this6.handleSelectRow(_this6.state.data[y], true, e, y);
 	        } else if (flag === 'back') {
+	          console.log('Back');
+	          console.log(_this6.state.data);
 	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
 	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
 	        } else if (flag === 'front') {
+	          console.log('Front');
+	          console.log(_this6.state.data);
 	          _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
 	          _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
 	        }
@@ -8023,8 +8028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var rowIndex = this.props.index + 1;
 	      var cellIndex = e.target.cellIndex;
-	      console.log('CLICOU NO TR TABLEROW.JS 17');
-	      if (this.props.onRowClick) this.props.onRowClick(rowIndex, cellIndex, e);
+	      if (this.props.onRowClick && selectRow.clickToSelect) this.props.onRowClick(rowIndex, cellIndex, e);
 	      var _props = this.props,
 	          selectRow = _props.selectRow,
 	          unselectableRow = _props.unselectableRow,
