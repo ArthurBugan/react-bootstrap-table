@@ -14,7 +14,7 @@ class TableRow extends Component {
   rowClick = e => {
     const rowIndex = this.props.index + 1;
     const cellIndex = e.target.cellIndex;
-    console.log('CLICOU NO TR')
+    console.log('CLICOU NO TR TABLEROW.JS 17');
     if (this.props.onRowClick) this.props.onRowClick(rowIndex, cellIndex, e);
     const {
       selectRow, unselectableRow, isSelected, onSelectRow, onExpandRow, dbClickToEdit

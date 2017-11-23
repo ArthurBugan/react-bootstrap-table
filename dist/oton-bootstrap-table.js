@@ -1259,6 +1259,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      if (options.onRowClick) {
 	        options.onRowClick(row, columnIndex, rowIndex);
+	        this.setState(_extends({}, this.state, {
+	          x: columnIndex,
+	          y: rowIndex,
+	          reset: false
+	        }));
+
+	        console.log('CLICOU BOOTSTRAPTABLE.JS 747');
 	      }
 	      if (keyBoardNav) {
 	        var _ref5 = (typeof keyBoardNav === 'undefined' ? 'undefined' : _typeof(keyBoardNav)) === 'object' ? keyBoardNav : {},
@@ -7585,6 +7592,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (this._isExpandColumnVisible()) cellIndex--;
 	      onRowClick(this.props.data[rowIndex - 1], rowIndex - 1, cellIndex, e);
 	      this.handleSelectRow(rowIndex, true, e);
+	      console.log('HANDLE ROW CLICK TABLEBODY.JS 322');
 	    }
 	  }, {
 	    key: '__handleRowDoubleClick__REACT_HOT_LOADER__',
@@ -7991,7 +7999,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var rowIndex = this.props.index + 1;
 	      var cellIndex = e.target.cellIndex;
-	      console.log('CLICOU NO TR');
+	      console.log('CLICOU NO TR TABLEROW.JS 17');
 	      if (this.props.onRowClick) this.props.onRowClick(rowIndex, cellIndex, e);
 	      var _props = this.props,
 	          selectRow = _props.selectRow,

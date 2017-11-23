@@ -319,6 +319,7 @@ class TableBody extends Component {
     if (this._isExpandColumnVisible()) cellIndex--;
     onRowClick(this.props.data[rowIndex - 1], rowIndex - 1, cellIndex, e);
     this.handleSelectRow(rowIndex, true, e);
+    console.log('HANDLE ROW CLICK TABLEBODY.JS 322')
   }
 
   handleRowDoubleClick = rowIndex => {

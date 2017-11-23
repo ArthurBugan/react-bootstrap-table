@@ -30,7 +30,7 @@ export default class SimpleNavTable extends React.Component {
     }
 
     const keyBoardNav = {
-      clickToNav: true
+      clickToNav: false
     }
     return (
       <BootstrapTable data={ products } selectRow={ selectRow } keyBoardNav={ keyBoardNav } options={options}>
