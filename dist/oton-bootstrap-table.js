@@ -1244,13 +1244,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 
+	      var differ = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
+	      console.log(this.state.data, this.state.oldData);
 	      this.setState(function () {
 	        return {
 	          x: x, y: y, currPage: currPage, reset: false, oldData: _this6.state.data
 	        };
 	      }, function () {
-	        var differ = JSON.stringify(_this6.state.data) !== JSON.stringify(_this6.state.oldData);
-
+	        console.log(differ);
+	        console.log(_this6.state.data, _this6.state.oldData);
 	        if (differ && y !== oldY && y < oldY) {
 	          setTimeout(function () {
 	            _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data.length - 1, true, e, y);
@@ -1262,6 +1264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data.length - _this6.state.data.length + 1, true, e, y);
 	          }, 500);
 	        } else {
+	          console.log('else');
 	          _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data[y], true, e, y);
 	        }
 	        console.log(x, oldX, y, oldY);;

@@ -730,26 +730,27 @@ class BootstrapTable extends Component {
       }
     }
 
+    let differ = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
+    console.log(this.state.data, this.state.oldData);
     this.setState(() => {
       return {
         x, y, currPage, reset: false, oldData: this.state.data
       };
     }, () => {
-      let differ = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
-
+      console.log(differ)
+      console.log(this.state.data, this.state.oldData);
       if(differ && y !== oldY && y < oldY){
         setTimeout( () => { this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow(this.state.data.length - 1, true, e, y)},500 );
         console.log('Sao diferentes e eu voltei')
       } else if(differ && y !== oldY && y > oldY) {
         console.log('Sao diferentes e eu fui pra frente')
-       setTimeout(() => { this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow((this.state.data.length - this.state.data.length) + 1, true, e, y) }, 500 ); 
+       setTimeout(() => { this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow((this.state.data.length - this.state.data.length) + 1, true, e, y) }, 500 );
       } else {
+        console.log('else')
         this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow(this.state.data[y], true, e, y)
       }
       console.log(x, oldX, y, oldY); ;
     } );
-
-
   }
 
   handleRowClick = (row, rowIndex, columnIndex, e) => {
