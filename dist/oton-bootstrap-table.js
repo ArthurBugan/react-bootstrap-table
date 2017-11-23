@@ -1245,7 +1245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          x: x, y: y, currPage: currPage, reset: false
 	        };
 	      }, function () {
-	        _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data[y], true, e, y);
+	        console.log(x, y, currPage);_this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data[y], true, e, y);
 	      });
 	    }
 	  }, {
@@ -1269,7 +1269,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        this.handleSelectRow(this.state.data[rowIndex], true, e, rowIndex);
 	        console.log('CLICOU BOOTSTRAPTABLE.JS 747');
-	        console.log(e);
 	      }
 	      /*if (keyBoardNav) {
 	        let { clickToNav } = typeof keyBoardNav === 'object' ? keyBoardNav : {};
