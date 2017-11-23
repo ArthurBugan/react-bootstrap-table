@@ -17,7 +17,7 @@ function addProducts(quantity) {
   }
 }
 
-addProducts(5);
+addProducts(50);
 
 const selectRowProp = {
   mode: 'radio'
@@ -30,7 +30,7 @@ const options = {
 export default class SingleSelectTable extends React.Component {
   render() {
     return (
-      <BootstrapTable data={ products } selectRow={ selectRowProp } options={options}>
+      <BootstrapTable data={ products } pagination selectRow={ selectRowProp } options={options}>
           <TableHeaderColumn dataField='id' isKey={ true }>Product ID</TableHeaderColumn>
           <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
           <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>

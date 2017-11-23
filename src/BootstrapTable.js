@@ -237,7 +237,8 @@ class BootstrapTable extends Component {
         expanding: [],
         sizePerPage: Const.SIZE_PER_PAGE_LIST[0],
         selectedRowKeys: [],
-        reset: true
+        reset: true,
+        oldData: ''
       };
     });
   }
@@ -676,6 +677,8 @@ class BootstrapTable extends Component {
     let { x, y, currPage } = this.state;
     x += offSetX;
     y += offSetY;
+    let oldY = y;
+    let oldX = x;
 
     const columns = this.store.getColInfos();
     const visibleRowSize = this.state.data.length;
@@ -726,11 +729,27 @@ class BootstrapTable extends Component {
         y--;
       }
     }
+
     this.setState(() => {
       return {
-        x, y, currPage, reset: false
+        x, y, currPage, reset: false, oldData: this.state.data
       };
-    }, () => { console.log(x, y, currPage); this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow(this.state.data[y], true, e, y); } );
+    }, () => {
+      let differ = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
+
+      if(differ && y !== oldY && y < oldY){
+        setTimeout( () => { this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow(this.state.data.length - 1, true, e, y)},500 );
+        console.log('Sao diferentes e eu voltei')
+      } else if(differ && y !== oldY && y > oldY) {
+        console.log('Sao diferentes e eu fui pra frente')
+       setTimeout(() => { this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow((this.state.data.length - this.state.data.length) + 1, true, e, y) }, 500 ); 
+      } else {
+        this.handleRowClick(this.state.data[y], y, x); this.handleSelectRow(this.state.data[y], true, e, y)
+      }
+      console.log(x, oldX, y, oldY); ;
+    } );
+
+
   }
 
   handleRowClick = (row, rowIndex, columnIndex, e) => {

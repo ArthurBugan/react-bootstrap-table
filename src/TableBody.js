@@ -267,13 +267,14 @@ class TableBody extends Component {
     e.preventDefault();
     const { keyBoardNav, onNavigateCell, cellEdit, selectedRowKeys } = this.props;
     let offset;
+    const rowIndex = e.target.parentElement.rowIndex + 1;
 
     if (e.keyCode === 38) {
       offset = { x: 0, y: -1 };
     } else if (e.keyCode === 40) {
       offset = { x: 0, y: 1 };
+      //this.handleSelectRow(rowIndex, !isSelected, e);
     } else if (e.keyCode === 13) {
-      const rowIndex = e.target.parentElement.rowIndex + 1;
       const enterToEdit = typeof keyBoardNav === 'object' ?
         keyBoardNav.enterToEdit :
         false;

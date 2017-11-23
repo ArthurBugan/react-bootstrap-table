@@ -688,7 +688,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          expanding: [],
 	          sizePerPage: _Const2.default.SIZE_PER_PAGE_LIST[0],
 	          selectedRowKeys: [],
-	          reset: true
+	          reset: true,
+	          oldData: ''
 	        };
 	      });
 	    }
@@ -1188,6 +1189,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      x += offSetX;
 	      y += offSetY;
+	      var oldY = y;
+	      var oldX = x;
 
 	      var columns = this.store.getColInfos();
 	      var visibleRowSize = this.state.data.length;
@@ -1240,12 +1243,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	          y--;
 	        }
 	      }
+
 	      this.setState(function () {
 	        return {
-	          x: x, y: y, currPage: currPage, reset: false
+	          x: x, y: y, currPage: currPage, reset: false, oldData: _this6.state.data
 	        };
 	      }, function () {
-	        console.log(x, y, currPage);_this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data[y], true, e, y);
+	        var differ = JSON.stringify(_this6.state.data) !== JSON.stringify(_this6.state.oldData);
+
+	        if (differ && y !== oldY && y < oldY) {
+	          setTimeout(function () {
+	            _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data.length - 1, true, e, y);
+	          }, 500);
+	          console.log('Sao diferentes e eu voltei');
+	        } else if (differ && y !== oldY && y > oldY) {
+	          console.log('Sao diferentes e eu fui pra frente');
+	          setTimeout(function () {
+	            _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data.length - _this6.state.data.length + 1, true, e, y);
+	          }, 500);
+	        } else {
+	          _this6.handleRowClick(_this6.state.data[y], y, x);_this6.handleSelectRow(_this6.state.data[y], true, e, y);
+	        }
+	        console.log(x, oldX, y, oldY);;
 	      });
 	    }
 	  }, {
@@ -7542,13 +7561,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          selectedRowKeys = _props2.selectedRowKeys;
 
 	      var offset = void 0;
+	      var rowIndex = e.target.parentElement.rowIndex + 1;
 
 	      if (e.keyCode === 38) {
 	        offset = { x: 0, y: -1 };
 	      } else if (e.keyCode === 40) {
 	        offset = { x: 0, y: 1 };
+	        //this.handleSelectRow(rowIndex, !isSelected, e);
 	      } else if (e.keyCode === 13) {
-	        var rowIndex = e.target.parentElement.rowIndex + 1;
 	        var enterToEdit = (typeof keyBoardNav === 'undefined' ? 'undefined' : _typeof(keyBoardNav)) === 'object' ? keyBoardNav.enterToEdit : false;
 	        var enterToExpand = (typeof keyBoardNav === 'undefined' ? 'undefined' : _typeof(keyBoardNav)) === 'object' ? keyBoardNav.enterToExpand : false;
 	        var enterToSelect = (typeof keyBoardNav === 'undefined' ? 'undefined' : _typeof(keyBoardNav)) === 'object' ? keyBoardNav.enterToSelect : false;
