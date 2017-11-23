@@ -14,11 +14,14 @@ class TableRow extends Component {
   rowClick = e => {
     const rowIndex = this.props.index + 1;
     const cellIndex = e.target.cellIndex;
-      if (this.props.onRowClick && selectRow.clickToSelect) 
-        this.props.onRowClick(rowIndex, cellIndex, e);
+
     const {
       selectRow, unselectableRow, isSelected, onSelectRow, onExpandRow, dbClickToEdit
     } = this.props;
+
+    if (this.props.onRowClick && selectRow.clickToSelect)
+      this.props.onRowClick(rowIndex, cellIndex, e);
+
     if (selectRow) {
       if (selectRow.clickToSelect && !unselectableRow) {
         this.clickNum++;
