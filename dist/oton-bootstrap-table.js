@@ -811,26 +811,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	      console.log(nextProps, this.props);
 	      if (JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
 	        if (nextProps.options.page > this.props.options.page) {
+	          console.log('Entrou no will recieve props do front');
+	          console.log(this.props.options.page);
+	          console.log(nextProps.options.page);
 	          this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
 	        } else if (nextProps.options.page < this.props.options.page) {
+	          console.log('Entrou no will recieve props do back');
 	          this.handleNavigateCell({ x: 0, y: -1, flag: 'back' });
 	        }
 	      }
 	    }
-	  }, {
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps, nextState) {
-	      if (JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
-	        console.log(this.state.y, nextState.y);
-	        if (nextState.y > this.state.y) {
-	          this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
-	        } else if (nextState.y < this.state.y) {
-	          this.handleNavigateCell({ x: 0, y: -1, flag: 'back' });
-	        }
-	      }
 
-	      return true;
-	    }
+	    /*shouldComponentUpdate(nextProps, nextState) {
+	      if(JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+	        console.log(this.state.y, nextState.y);
+	        if(nextState.y > this.state.y) {
+	          this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
+	        } else if(nextState.y < this.state.y) {
+	          this.handleNavigateCell({x: 0, y: -1, flag: 'back'});
+	        }
+	      }
+	       return true;
+	    }*/
+
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
