@@ -1208,6 +1208,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var oldY = y;
 	      var oldX = x;
 
+	      console.log('Entrou no handleNavigateCell');
+	      console.log(x, oldX, y, oldY, flag);
+
 	      var columns = this.store.getColInfos();
 	      var visibleRowSize = this.state.data.length;
 	      var visibleColumnSize = Object.keys(columns).filter(function (k) {
@@ -1262,7 +1265,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this.setState(function () {
 	        return {
-	          x: x, y: y, currPage: currPage, reset: false, oldData: _this6.state.data
+	          x: x, y: y, currPage: currPage, reset: false
 	        };
 	      }, function () {
 	        if (flag === true) {
