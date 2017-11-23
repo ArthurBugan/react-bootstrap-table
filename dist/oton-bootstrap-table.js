@@ -1244,25 +1244,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 
-	      var differ = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
+	      var differOld = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
+	      console.log(differOld);
 	      console.log(this.state.data, this.state.oldData);
 	      this.setState(function () {
 	        return {
 	          x: x, y: y, currPage: currPage, reset: false, oldData: _this6.state.data
 	        };
 	      }, function () {
+	        var differ = JSON.stringify(_this6.state.data) !== JSON.stringify(_this6.state.oldData);
 	        console.log(differ);
 	        console.log(_this6.state.data, _this6.state.oldData);
-	        if (differ && oldY === -1) {
+	        if ((differ || differOld) && oldY === -1) {
 	          console.log('Sao diferentes e eu voltei');
 	          setTimeout(function () {
 	            _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], y, x, e);_this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, y);
-	          }, 500);
-	        } else if (differ && y !== oldY && y > oldY) {
+	          }, 100);
+	        } else if ((differ || differOld) && y !== oldY && oldY === _this6.state.data.length) {
 	          console.log('Sao diferentes e eu fui pra frente');
 	          setTimeout(function () {
-	            _this6.handleRowClick(_this6.state.data[y], y, x, e);_this6.handleSelectRow(_this6.state.data.length - 1, true, e, y);
-	          }, 500);
+	            _this6.handleRowClick(_this6.state.data[0], y, x, e);_this6.handleSelectRow(_this6.state.data[0], true, e, y);
+	          }, 100);
 	        } else {
 	          console.log('else');
 	          _this6.handleRowClick(_this6.state.data[y], y, x, e);_this6.handleSelectRow(_this6.state.data[y], true, e, y);

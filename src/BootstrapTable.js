@@ -730,21 +730,23 @@ class BootstrapTable extends Component {
       }
     }
 
-    let differ = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
+    let differOld = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
+    console.log(differOld)
     console.log(this.state.data, this.state.oldData);
     this.setState(() => {
       return {
         x, y, currPage, reset: false, oldData: this.state.data
       };
     }, () => {
+      let differ = JSON.stringify(this.state.data) !== JSON.stringify(this.state.oldData);
       console.log(differ)
       console.log(this.state.data, this.state.oldData);
-      if(differ && oldY === -1){
+      if((differ || differOld) && oldY === -1){
         console.log('Sao diferentes e eu voltei')
-        setTimeout(() => { this.handleRowClick(this.state.data[this.state.data.length - 1], y, x, e); this.handleSelectRow(this.state.data[ this.state.data.length - 1], true, e, y) }, 500 );
-      } else if(differ && y !== oldY && y > oldY) {
+        setTimeout(() => { this.handleRowClick(this.state.data[this.state.data.length - 1], y, x, e); this.handleSelectRow(this.state.data[ this.state.data.length - 1], true, e, y) }, 100 );
+      } else if(((differ || differOld) && (y !== oldY) && (oldY === this.state.data.length))) {
         console.log('Sao diferentes e eu fui pra frente')
-       setTimeout( () => { this.handleRowClick(this.state.data[y], y, x, e); this.handleSelectRow(this.state.data.length - 1, true, e, y)},500 );
+       setTimeout( () => { this.handleRowClick(this.state.data[0], y, x, e); this.handleSelectRow(this.state.data[0], true, e, y)},100 );
       } else {
         console.log('else')
         this.handleRowClick(this.state.data[y], y, x, e); this.handleSelectRow(this.state.data[y], true, e, y);

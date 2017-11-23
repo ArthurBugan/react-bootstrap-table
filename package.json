@@ -1,6 +1,6 @@
 {
   "name": "oton-bootstrap-table",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "It's a react table for bootstrap",
   "main": "./lib/index.js",
   "repository": {
