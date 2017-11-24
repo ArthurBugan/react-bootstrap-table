@@ -1320,26 +1320,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }, function () {
 
 	        console.log(flag);
+	        console.log(_this6.state);
 
 	        if (flag === true) {
 	          console.log('Flag = true');
 	          _this6.handleRowClick(_this6.state.data[y], y, x, e);
 	          _this6.handleSelectRow(_this6.state.data[y], true, e, y);
-	        }
-
-	        if (flag === 'back' && _this6.state.oldFlag === true) {
+	        } else if (flag === 'front') {
+	          console.log('Front');
+	          console.log(_this6.state.data);
+	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
+	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
+	        } else if (flag === 'back' && _this6.state.oldFlag === true) {
 	          console.log('Back');
 	          console.log(_this6.state.data);
 	          _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
 	          _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
-	        } else {
-	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
-	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
-	        }
-
-	        if (flag === 'front') {
-	          console.log('Front');
-	          console.log(_this6.state.data);
+	        } else if (flag === 'back' && _this6.state.oldFlag !== true) {
+	          console.log('Caiu nesse else');
 	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
 	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
 	        }

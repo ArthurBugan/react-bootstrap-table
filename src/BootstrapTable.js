@@ -807,29 +807,30 @@ class BootstrapTable extends Component {
     }, () => {
 
         console.log(flag);
+        console.log(this.state)
 
         if(flag === true) {
           console.log('Flag = true');
           this.handleRowClick(this.state.data[y], y, x, e);
           this.handleSelectRow(this.state.data[y], true, e, y);
         }
-
-        if (flag === 'back' && this.state.oldFlag === true) {
-          console.log('Back')
-          console.log(this.state.data)
-          this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
-          this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
-        } else {
-          this.handleRowClick(this.state.data[0], 0, x, e);
-          this.handleSelectRow(this.state.data[0], true, e, 0);
-        }
-
-        if (flag === 'front') {
+        else if (flag === 'front') {
           console.log('Front')
           console.log(this.state.data)
           this.handleRowClick(this.state.data[0], 0, x, e);
           this.handleSelectRow(this.state.data[0], true, e, 0)
         }
+        else if (flag === 'back' && this.state.oldFlag === true) {
+          console.log('Back')
+          console.log(this.state.data)
+          this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
+          this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
+        } else if (flag === 'back' && this.state.oldFlag !== true) {
+          console.log('Caiu nesse else')
+          this.handleRowClick(this.state.data[0], 0, x, e);
+          this.handleSelectRow(this.state.data[0], true, e, 0);
+        }
+
 
         });
   }
