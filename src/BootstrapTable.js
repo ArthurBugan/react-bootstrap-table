@@ -47,7 +47,7 @@ class BootstrapTable extends Component {
     this.state = {
       data: this.getTableData(),
       currPage: currPage,
-      oldFlag: '',
+      oldFlag: true,
       expanding: this.props.options.expanding || [],
       sizePerPage: this.props.options.sizePerPage || Const.SIZE_PER_PAGE_LIST[0],
       selectedRowKeys: this.store.getSelectedRowKeys(),
@@ -802,7 +802,7 @@ class BootstrapTable extends Component {
     console.log('ANTES DO SET STATE')
     this.setState(() => {
       return {
-        x, y, currPage: flag === true ? currPage : this.state.currPage, reset: false, oldFlag: flag
+        x, y, currPage: flag === true ? currPage : this.state.currPage, reset: false
       };
     }, () => {
 
@@ -831,7 +831,7 @@ class BootstrapTable extends Component {
           this.handleSelectRow(this.state.data[0], true, e, 0);
         }
 
-
+        this.setState({ oldFlag: flag });
         });
   }
 

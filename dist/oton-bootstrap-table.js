@@ -362,7 +362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.state = {
 	      data: _this.getTableData(),
 	      currPage: currPage,
-	      oldFlag: '',
+	      oldFlag: true,
 	      expanding: _this.props.options.expanding || [],
 	      sizePerPage: _this.props.options.sizePerPage || _Const2.default.SIZE_PER_PAGE_LIST[0],
 	      selectedRowKeys: _this.store.getSelectedRowKeys(),
@@ -1315,7 +1315,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      console.log('ANTES DO SET STATE');
 	      this.setState(function () {
 	        return {
-	          x: x, y: y, currPage: flag === true ? currPage : _this6.state.currPage, reset: false, oldFlag: flag
+	          x: x, y: y, currPage: flag === true ? currPage : _this6.state.currPage, reset: false
 	        };
 	      }, function () {
 
@@ -1341,6 +1341,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
 	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
 	        }
+
+	        _this6.setState({ oldFlag: flag });
 	      });
 	    }
 	  }, {
