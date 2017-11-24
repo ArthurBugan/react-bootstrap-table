@@ -730,6 +730,7 @@ class BootstrapTable extends Component {
     if (y >= visibleRowSize) {
       currPage++;
       const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
+      console.log(lastPage);
       if (currPage <= lastPage) {
         console.log('currPage <= lastPage');
         console.log(currPage <= lastPage);
@@ -799,9 +800,12 @@ class BootstrapTable extends Component {
 
     console.log('ANTES DO SET STATE')
     this.setState(() => {
-      return {
-        x, y, currPage, reset: false
-      };
+      if(flag === true){
+        return {
+          x, y, currPage, reset: false
+        };
+      }
+
     }, () => {
 
         console.log(flag);
