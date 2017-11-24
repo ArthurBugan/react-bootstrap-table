@@ -352,39 +352,16 @@ class BootstrapTable extends Component {
       this.reset();
     }
 
-    console.log(nextProps, this.props, this.state);
     if(JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
-      console.log('Sao diferentes!')
-      console.log(this.props.options.page)
-      console.log(nextProps.options.page)
-      console.log(this.props.options.oldPage)
-      console.log(nextProps.options.oldPage)
       if(nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== nextProps.options.page) {
         if( (nextProps.options.page) > (nextProps.options.oldPage) ) {
-          console.log('Entrou no will recieve props do front')
           this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
         } else if( (nextProps.options.page) < (nextProps.options.oldPage) ) {
-          console.log('Entrou no will recieve props do back')
           this.handleNavigateCell({x: 0, y: -1, flag: 'back'});
         }
-      } else {
-        console.error('Esqueceu de passar o oldPage!');
       }
     }
   }
-
-  /*shouldComponentUpdate(nextProps, nextState) {
-    if(JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
-      console.log(this.state.y, nextState.y);
-      if(nextState.y > this.state.y) {
-        this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
-      } else if(nextState.y < this.state.y) {
-        this.handleNavigateCell({x: 0, y: -1, flag: 'back'});
-      }
-    }
-
-    return true;
-  }*/
 
   componentDidMount() {
     this._adjustTable();
@@ -717,60 +694,43 @@ class BootstrapTable extends Component {
     const columns = this.store.getColInfos();
     const visibleRowSize = this.state.data.length;
     const visibleColumnSize = Object.keys(columns).filter(k => !columns[k].hidden).length;
-
-    console.log('y >= visibleRowSize');
-    console.log(y >= visibleRowSize);
-
-    console.log('Changed')
-
     if (y >= visibleRowSize) {
       currPage++;
       const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
-      console.log(lastPage);
 
       if(currPage > lastPage) {
         currPage = lastPage;
       }
 
       if (currPage <= lastPage) {
-        console.log('currPage <= lastPage');
-        console.log(currPage <= lastPage);
+
         if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
-        console.log(lastPage);
-        console.log(currPage);
-        console.log('Return do mal')
         return;
       }
       y = 0;
     } else if (y < 0) {
-      console.log('y < 0');
-      console.log(y < 0);
+
       currPage--;
-      console.log(currPage);
+
       if (currPage > 0) {
-        console.log('currPage > 0');
-        console.log(currPage > 0);
+
         if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
         if(currPage === 0) {
           currPage = 1;
         } else {
-          console.log('Return do mal')
           return;
         }
       }
       y = visibleRowSize - 1;
     } else if (x >= visibleColumnSize) {
-      console.log('x >= visibleColumnSize');
-      console.log(x >= visibleColumnSize);
       if ((y + 1) === visibleRowSize) {
         currPage++;
         const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
         if (currPage <= lastPage) {
           if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
         } else {
-          console.log('Return do mal')
           return;
         }
         y = 0;
@@ -779,54 +739,40 @@ class BootstrapTable extends Component {
       }
       x = lastEditCell ? 1 : 0;
     } else if (x < 0) {
-      console.log('x < 0');
-      console.log(x < 0);
       x = visibleColumnSize - 1;
       if (y === 0) {
-        console.log('y === 0');
         currPage--;
         if (currPage > 0) {
           if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
         } else {
-          console.log('Return do mal')
           return;
         }
         y = this.state.sizePerPage - 1;
       } else {
-        console.log('ELSE FINAL')
         y--;
       }
     }
 
 
-    console.log('ANTES DO SET STATE')
+
     this.setState(() => {
       return {
         x, y, currPage: flag === true ? currPage : this.state.currPage, reset: false
       };
     }, () => {
 
-        console.log(flag);
-        console.log(this.state)
-
         if(flag === true) {
-          console.log('Flag = true');
           this.handleRowClick(this.state.data[y], y, x, e);
           this.handleSelectRow(this.state.data[y], true, e, y);
         }
         else if (flag === 'front') {
-          console.log('Front')
-          console.log(this.state.data)
           this.handleRowClick(this.state.data[0], 0, x, e);
           this.handleSelectRow(this.state.data[0], true, e, 0)
         }
         else if (flag === 'back' && this.state.oldFlag === true) {
-          console.log('Back')
-          console.log(this.state.data)
           this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
           this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
         } else if (flag === 'back' && this.state.oldFlag !== true) {
-          console.log('Caiu nesse else')
           this.handleRowClick(this.state.data[0], 0, x, e);
           this.handleSelectRow(this.state.data[0], true, e, 0);
         }
