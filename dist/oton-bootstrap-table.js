@@ -362,6 +362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.state = {
 	      data: _this.getTableData(),
 	      currPage: currPage,
+	      oldFlag: '',
 	      expanding: _this.props.options.expanding || [],
 	      sizePerPage: _this.props.options.sizePerPage || _Const2.default.SIZE_PER_PAGE_LIST[0],
 	      selectedRowKeys: _this.store.getSelectedRowKeys(),
@@ -1224,11 +1225,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      x += offSetX;
 	      y += offSetY;
-	      var oldY = y;
-	      var oldX = x;
-
-	      console.log('Entrou no handleNavigateCell');
-	      console.log(x, oldX, y, oldY, flag);
 
 	      var columns = this.store.getColInfos();
 	      var visibleRowSize = this.state.data.length;
@@ -1319,7 +1315,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      console.log('ANTES DO SET STATE');
 	      this.setState(function () {
 	        return {
-	          x: x, y: y, currPage: flag === true ? currPage : _this6.state.currPage, reset: false
+	          x: x, y: y, currPage: flag === true ? currPage : _this6.state.currPage, reset: false, oldFlag: flag
 	        };
 	      }, function () {
 
@@ -1331,11 +1327,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _this6.handleSelectRow(_this6.state.data[y], true, e, y);
 	        }
 
-	        if (flag === 'back') {
+	        if (flag === 'back' && _this6.state.oldFlag === true) {
 	          console.log('Back');
 	          console.log(_this6.state.data);
 	          _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
 	          _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
+	        } else {
+	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
+	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
 	        }
 
 	        if (flag === 'front') {

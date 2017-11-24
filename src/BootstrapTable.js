@@ -47,6 +47,7 @@ class BootstrapTable extends Component {
     this.state = {
       data: this.getTableData(),
       currPage: currPage,
+      oldFlag: '',
       expanding: this.props.options.expanding || [],
       sizePerPage: this.props.options.sizePerPage || Const.SIZE_PER_PAGE_LIST[0],
       selectedRowKeys: this.store.getSelectedRowKeys(),
@@ -707,16 +708,11 @@ class BootstrapTable extends Component {
   }
 
   handleNavigateCell = ({ x: offSetX, y: offSetY, lastEditCell, flag }, e) => {
-
     const { pagination } = this.props;
     let { x, y, currPage } = this.state;
     x += offSetX;
     y += offSetY;
-    let oldY = y;
-    let oldX = x;
 
-    console.log('Entrou no handleNavigateCell')
-    console.log(x, oldX, y, oldY, flag);
 
     const columns = this.store.getColInfos();
     const visibleRowSize = this.state.data.length;
@@ -806,7 +802,7 @@ class BootstrapTable extends Component {
     console.log('ANTES DO SET STATE')
     this.setState(() => {
       return {
-        x, y, currPage: flag === true ? currPage : this.state.currPage, reset: false
+        x, y, currPage: flag === true ? currPage : this.state.currPage, reset: false, oldFlag: flag
       };
     }, () => {
 
@@ -818,11 +814,14 @@ class BootstrapTable extends Component {
           this.handleSelectRow(this.state.data[y], true, e, y);
         }
 
-        if (flag === 'back' ) {
+        if (flag === 'back' && this.state.oldFlag === true) {
           console.log('Back')
           console.log(this.state.data)
           this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
           this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
+        } else {
+          this.handleRowClick(this.state.data[0], 0, x, e);
+          this.handleSelectRow(this.state.data[0], true, e, 0);
         }
 
         if (flag === 'front') {
