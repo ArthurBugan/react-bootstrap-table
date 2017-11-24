@@ -1287,6 +1287,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          x: x, y: y, currPage: currPage, reset: false
 	        };
 	      }, function () {
+
+	        console.log(flag);
+
 	        if (flag === true) {
 	          console.log('Flag = true');
 	          _this6.handleRowClick(_this6.state.data[y], y, x, e);

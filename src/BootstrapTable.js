@@ -773,11 +773,14 @@ class BootstrapTable extends Component {
         x, y, currPage, reset: false
       };
     }, () => {
+
+        console.log(flag);
+        
         if(flag === true) {
           console.log('Flag = true');
           this.handleRowClick(this.state.data[y], y, x, e);
           this.handleSelectRow(this.state.data[y], true, e, y);
-        } 
+        }
 
         if( flag === 'back' ) {
           console.log('Back')
