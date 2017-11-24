@@ -738,7 +738,9 @@ class BootstrapTable extends Component {
     console.log(x >= visibleColumnSize);
 
     console.log('x < 0');
-    console.log(x < 0)
+    console.log(x < 0);
+
+    console.log('Changed')
 
     if (y >= visibleRowSize) {
       currPage++;
