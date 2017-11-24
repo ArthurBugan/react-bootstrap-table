@@ -725,20 +725,15 @@ class BootstrapTable extends Component {
     console.log('y >= visibleRowSize');
     console.log(y >= visibleRowSize);
 
-    console.log('currPage <= lastPage');
-    console.log(currPage <= lastPage);
 
-    console.log('y < 0');
-    console.log(y < 0);
 
-    console.log('currPage > 0');
-    console.log(currPage > 0);
 
-    console.log('x >= visibleColumnSize');
-    console.log(x >= visibleColumnSize);
 
-    console.log('x < 0');
-    console.log(x < 0);
+
+
+
+
+
 
     console.log('Changed')
 
@@ -746,6 +741,8 @@ class BootstrapTable extends Component {
       currPage++;
       const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
       if (currPage <= lastPage) {
+        console.log('currPage <= lastPage');
+        console.log(currPage <= lastPage);
         if(flag) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
         console.log('Return do mal')
@@ -753,9 +750,12 @@ class BootstrapTable extends Component {
       }
       y = 0;
     } else if (y < 0) {
+      console.log('y < 0');
+      console.log(y < 0);
       currPage--;
-      console.log(currPage);
       if (currPage > 0) {
+        console.log('currPage > 0');
+        console.log(currPage > 0);
         if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
         console.log('Return do mal')
@@ -763,6 +763,8 @@ class BootstrapTable extends Component {
       }
       y = visibleRowSize - 1;
     } else if (x >= visibleColumnSize) {
+      console.log('x >= visibleColumnSize');
+      console.log(x >= visibleColumnSize);
       if ((y + 1) === visibleRowSize) {
         currPage++;
         const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
@@ -778,6 +780,8 @@ class BootstrapTable extends Component {
       }
       x = lastEditCell ? 1 : 0;
     } else if (x < 0) {
+      console.log('x < 0');
+      console.log(x < 0);
       x = visibleColumnSize - 1;
       if (y === 0) {
         currPage--;

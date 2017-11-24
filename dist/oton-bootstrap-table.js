@@ -1239,27 +1239,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      console.log('y >= visibleRowSize');
 	      console.log(y >= visibleRowSize);
 
-	      console.log('currPage <= lastPage');
-	      console.log(currPage <= lastPage);
-
-	      console.log('y < 0');
-	      console.log(y < 0);
-
-	      console.log('currPage > 0');
-	      console.log(currPage > 0);
-
-	      console.log('x >= visibleColumnSize');
-	      console.log(x >= visibleColumnSize);
-
-	      console.log('x < 0');
-	      console.log(x < 0);
-
 	      console.log('Changed');
 
 	      if (y >= visibleRowSize) {
 	        currPage++;
-	        var _lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
-	        if (currPage <= _lastPage) {
+	        var lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
+	        if (currPage <= lastPage) {
+	          console.log('currPage <= lastPage');
+	          console.log(currPage <= lastPage);
 	          if (flag) this.handlePaginationData(currPage, this.state.sizePerPage);
 	        } else {
 	          console.log('Return do mal');
@@ -1267,9 +1254,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        y = 0;
 	      } else if (y < 0) {
+	        console.log('y < 0');
+	        console.log(y < 0);
 	        currPage--;
-	        console.log(currPage);
 	        if (currPage > 0) {
+	          console.log('currPage > 0');
+	          console.log(currPage > 0);
 	          if (flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
 	        } else {
 	          console.log('Return do mal');
@@ -1277,10 +1267,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        y = visibleRowSize - 1;
 	      } else if (x >= visibleColumnSize) {
+	        console.log('x >= visibleColumnSize');
+	        console.log(x >= visibleColumnSize);
 	        if (y + 1 === visibleRowSize) {
 	          currPage++;
-	          var _lastPage2 = pagination ? this.refs.pagination.getLastPage() : -1;
-	          if (currPage <= _lastPage2) {
+	          var _lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
+	          if (currPage <= _lastPage) {
 	            if (flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
 	          } else {
 	            console.log('Return do mal');
@@ -1292,6 +1284,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        x = lastEditCell ? 1 : 0;
 	      } else if (x < 0) {
+	        console.log('x < 0');
+	        console.log(x < 0);
 	        x = visibleColumnSize - 1;
 	        if (y === 0) {
 	          currPage--;
