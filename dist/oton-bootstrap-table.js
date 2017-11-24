@@ -1263,8 +1263,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          console.log(currPage > 0);
 	          if (flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
 	        } else {
-	          console.log('Return do mal');
-	          return;
+	          if (currPage === 0) {
+	            currPage = 1;
+	          } else {
+	            console.log('Return do mal');
+	            return;
+	          }
 	        }
 	        y = visibleRowSize - 1;
 	      } else if (x >= visibleColumnSize) {
