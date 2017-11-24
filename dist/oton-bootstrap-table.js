@@ -1249,6 +1249,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          console.log(currPage <= lastPage);
 	          if (flag) this.handlePaginationData(currPage, this.state.sizePerPage);
 	        } else {
+	          console.log(lastPage);
+	          console.log(currPage);
 	          console.log('Return do mal');
 	          return;
 	        }
