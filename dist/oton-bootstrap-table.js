@@ -1257,6 +1257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        console.log('y < 0');
 	        console.log(y < 0);
 	        currPage--;
+	        console.log(currPage);
 	        if (currPage > 0) {
 	          console.log('currPage > 0');
 	          console.log(currPage > 0);
@@ -1288,6 +1289,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        console.log(x < 0);
 	        x = visibleColumnSize - 1;
 	        if (y === 0) {
+	          console.log('y === 0');
 	          currPage--;
 	          if (currPage > 0) {
 	            if (flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);

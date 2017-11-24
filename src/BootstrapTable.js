@@ -725,16 +725,6 @@ class BootstrapTable extends Component {
     console.log('y >= visibleRowSize');
     console.log(y >= visibleRowSize);
 
-
-
-
-
-
-
-
-
-
-
     console.log('Changed')
 
     if (y >= visibleRowSize) {
@@ -753,6 +743,7 @@ class BootstrapTable extends Component {
       console.log('y < 0');
       console.log(y < 0);
       currPage--;
+      console.log(currPage);
       if (currPage > 0) {
         console.log('currPage > 0');
         console.log(currPage > 0);
@@ -784,6 +775,7 @@ class BootstrapTable extends Component {
       console.log(x < 0);
       x = visibleColumnSize - 1;
       if (y === 0) {
+        console.log('y === 0');
         currPage--;
         if (currPage > 0) {
           if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
