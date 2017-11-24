@@ -1288,15 +1288,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	      }, function () {
 	        if (flag === true) {
-
+	          console.log('Flag = true');
 	          _this6.handleRowClick(_this6.state.data[y], y, x, e);
 	          _this6.handleSelectRow(_this6.state.data[y], true, e, y);
-	        } else if (flag === 'back') {
+	        }
+
+	        if (flag === 'back') {
 	          console.log('Back');
 	          console.log(_this6.state.data);
 	          _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
 	          _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
-	        } else if (flag === 'front') {
+	        }
+
+	        if (flag === 'front') {
 	          console.log('Front');
 	          console.log(_this6.state.data);
 	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);

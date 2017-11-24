@@ -774,21 +774,25 @@ class BootstrapTable extends Component {
       };
     }, () => {
         if(flag === true) {
-
+          console.log('Flag = true');
           this.handleRowClick(this.state.data[y], y, x, e);
           this.handleSelectRow(this.state.data[y], true, e, y);
-        } else if( flag === 'back' ) {
+        } 
+
+        if( flag === 'back' ) {
           console.log('Back')
           console.log(this.state.data)
           this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
           this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
-        } else if (flag === 'front') {
+        }
+
+        if (flag === 'front') {
           console.log('Front')
           console.log(this.state.data)
           this.handleRowClick(this.state.data[0], 0, x, e);
           this.handleSelectRow(this.state.data[0], true, e, 0)
+        }
 
-          }
         });
   }
 
