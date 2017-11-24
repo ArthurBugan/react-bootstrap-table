@@ -358,7 +358,7 @@ class BootstrapTable extends Component {
       console.log(nextProps.options.page)
       console.log(this.props.options.oldPage)
       console.log(nextProps.options.oldPage)
-      if(nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== this.props.oldPage) {
+      if(nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== nextProps.options.page) {
         if( (nextProps.options.page) > (nextProps.options.oldPage) ) {
           console.log('Entrou no will recieve props do front')
           this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
@@ -664,7 +664,7 @@ class BootstrapTable extends Component {
     const { onPageChange, pageStartIndex } = this.props.options;
     const emptyTable = this.store.isEmpty();
     if (onPageChange) {
-      let value = onPageChange(page, sizePerPage);
+      onPageChange(page, sizePerPage);
     }
 
     const state = {

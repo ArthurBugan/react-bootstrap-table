@@ -16,6 +16,7 @@ export default class RemotePaging extends React.Component {
                                   onPageChange: this.props.onPageChange,
                                   sizePerPageList: [ 5, 10 ],
                                   page: this.props.currentPage,
+                                  oldPage: this.props.oldPage,
                                   onRowClick: (row) => console.log(row),
                                   onSizePerPageList: this.props.onSizePerPageList } }
                       selectRow={{ clickToSelect: true}}>

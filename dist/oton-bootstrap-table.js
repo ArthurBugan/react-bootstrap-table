@@ -815,7 +815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        console.log(nextProps.options.page);
 	        console.log(this.props.options.oldPage);
 	        console.log(nextProps.options.oldPage);
-	        if (nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== this.props.oldPage) {
+	        if (nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== nextProps.options.page) {
 	          if (nextProps.options.page > nextProps.options.oldPage) {
 	            console.log('Entrou no will recieve props do front');
 	            this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
@@ -1158,7 +1158,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var emptyTable = this.store.isEmpty();
 	      if (onPageChange) {
-	        var value = onPageChange(page, sizePerPage);
+	        onPageChange(page, sizePerPage);
 	      }
 
 	      var state = {

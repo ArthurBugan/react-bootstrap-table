@@ -23,7 +23,8 @@ export default class RemoteStorePaging extends React.Component {
       data: this.products.slice(0, this.props.sizePerPage),
       totalDataSize: this.products.length,
       sizePerPage: this.props.sizePerPage,
-      currentPage: 1
+      currentPage: 1,
+      oldPage: 1
     };
   }
 
@@ -32,7 +33,8 @@ export default class RemoteStorePaging extends React.Component {
     setTimeout( () => {
       this.setState({
         data: this.products.slice(currentIndex, currentIndex + sizePerPage),
-        currentPage: page
+        currentPage: page,
+        oldPage: this.state.page
       });
     }, 250);
   }
