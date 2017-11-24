@@ -1245,6 +1245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        currPage++;
 	        var lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
 	        console.log(lastPage);
+
 	        if (currPage > lastPage) {
 	          currPage = lastPage;
 	        }
@@ -1318,7 +1319,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      console.log('ANTES DO SET STATE');
 	      this.setState(function () {
 	        return {
-	          x: x, y: y, currPage: currPage, reset: false
+	          x: x, y: y, currPage: flag === true ? currPage : _this6.state.currPage, reset: false
 	        };
 	      }, function () {
 
