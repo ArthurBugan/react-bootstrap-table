@@ -733,11 +733,7 @@ class BootstrapTable extends Component {
       if (currPage <= lastPage) {
         console.log('currPage <= lastPage');
         console.log(currPage <= lastPage);
-        if(flag) {
-          console.log(flag)
-          console.log('ENTROU NESSE CARARIO DESSA PORRA')
-          this.handlePaginationData(currPage, this.state.sizePerPage);
-        }
+        if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
         console.log(lastPage);
         console.log(currPage);
