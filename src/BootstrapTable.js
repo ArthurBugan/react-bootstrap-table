@@ -359,10 +359,10 @@ class BootstrapTable extends Component {
       console.log(this.props.options.oldPage)
       console.log(nextProps.options.oldPage)
       if(nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== this.props.oldPage) {
-        if( (nextProps.options.page) > (this.props.options.page) ) {
+        if( (nextProps.options.page) > (nextProps.options.oldPage) ) {
           console.log('Entrou no will recieve props do front')
           this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
-        } else if( (nextProps.options.page) < (this.props.options.page) ) {
+        } else if( (nextProps.options.page) < (nextProps.options.oldPage) ) {
           console.log('Entrou no will recieve props do back')
           this.handleNavigateCell({x: 0, y: -1, flag: 'back'});
         }
