@@ -728,14 +728,17 @@ class BootstrapTable extends Component {
       if (currPage <= lastPage) {
         if(flag) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
+        console.log('Return do mal')
         return;
       }
       y = 0;
     } else if (y < 0) {
       currPage--;
+      console.log(currPage);
       if (currPage > 0) {
-        if(flag) this.handlePaginationData(currPage, this.state.sizePerPage);
+        if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
+        console.log('Return do mal')
         return;
       }
       y = visibleRowSize - 1;
@@ -744,8 +747,9 @@ class BootstrapTable extends Component {
         currPage++;
         const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
         if (currPage <= lastPage) {
-          if(flag) this.handlePaginationData(currPage, this.state.sizePerPage);
+          if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
         } else {
+          console.log('Return do mal')
           return;
         }
         y = 0;
@@ -758,8 +762,9 @@ class BootstrapTable extends Component {
       if (y === 0) {
         currPage--;
         if (currPage > 0) {
-          if(flag) this.handlePaginationData(currPage, this.state.sizePerPage);
+          if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
         } else {
+          console.log('Return do mal')
           return;
         }
         y = this.state.sizePerPage - 1;
@@ -775,14 +780,14 @@ class BootstrapTable extends Component {
     }, () => {
 
         console.log(flag);
-        
+
         if(flag === true) {
           console.log('Flag = true');
           this.handleRowClick(this.state.data[y], y, x, e);
           this.handleSelectRow(this.state.data[y], true, e, y);
         }
 
-        if( flag === 'back' ) {
+        if (flag === 'back' ) {
           console.log('Back')
           console.log(this.state.data)
           this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
