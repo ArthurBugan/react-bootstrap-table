@@ -808,17 +808,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.reset();
 	      }
 
-	      console.log(nextProps, this.props);
+	      console.log(nextProps, this.props, this.state);
 	      if (JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
 	        console.log('Sao diferentes!');
 	        console.log(this.props.options.page);
 	        console.log(nextProps.options.page);
-	        if (nextProps.options.page > this.props.options.page) {
-	          console.log('Entrou no will recieve props do front');
-	          this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
-	        } else if (nextProps.options.page < this.props.options.page) {
-	          console.log('Entrou no will recieve props do back');
-	          this.handleNavigateCell({ x: 0, y: -1, flag: 'back' });
+	        console.log(this.props.options.oldPage);
+	        console.log(nextProps.options.oldPage);
+	        if (nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== this.props.oldPage) {
+	          if (nextProps.options.page > this.props.options.page) {
+	            console.log('Entrou no will recieve props do front');
+	            this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
+	          } else if (nextProps.options.page < this.props.options.page) {
+	            console.log('Entrou no will recieve props do back');
+	            this.handleNavigateCell({ x: 0, y: -1, flag: 'back' });
+	          }
+	        } else {
+	          console.error('Esqueceu de passar o oldPage!');
 	        }
 	      }
 	    }
