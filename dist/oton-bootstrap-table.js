@@ -1247,7 +1247,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (currPage <= lastPage) {
 	          console.log('currPage <= lastPage');
 	          console.log(currPage <= lastPage);
-	          if (flag) this.handlePaginationData(currPage, this.state.sizePerPage);
+	          if (flag) {
+	            console.log(flag);
+	            console.log('ENTROU NESSE CARARIO DESSA PORRA');
+	            this.handlePaginationData(currPage, this.state.sizePerPage);
+	          }
 	        } else {
 	          console.log(lastPage);
 	          console.log(currPage);
