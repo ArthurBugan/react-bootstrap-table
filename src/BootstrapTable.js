@@ -685,7 +685,7 @@ class BootstrapTable extends Component {
   }
 
   handleNavigateCell = ({ x: offSetX, y: offSetY, lastEditCell, flag }, e) => {
-    const { pagination, keyBoardNav } = this.props;
+    const { pagination, options } = this.props;
     let { x, y, currPage } = this.state;
     x += offSetX;
     y += offSetY;
@@ -756,27 +756,30 @@ class BootstrapTable extends Component {
 
     this.setState(() => {
       return {
-        x, y, currPage: flag === true || keyBoardNav === false ? currPage : this.state.currPage, reset: false
+        x, y, currPage: flag === true ? currPage : keyBoardNav === false ? options.page : this.state.currPage, reset: false
       };
     }, () => {
 
-        if(flag === true) {
-          this.handleRowClick(this.state.data[y], y, x, e);
-          this.handleSelectRow(this.state.data[y], true, e, y);
-        }
-        else if (flag === 'front') {
-          this.handleRowClick(this.state.data[0], 0, x, e);
-          this.handleSelectRow(this.state.data[0], true, e, 0)
-        }
-        else if (flag === 'back' && this.state.oldFlag === true) {
-          this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
-          this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
-        } else if (flag === 'back' && this.state.oldFlag !== true) {
-          this.handleRowClick(this.state.data[0], 0, x, e);
-          this.handleSelectRow(this.state.data[0], true, e, 0);
+        if(keyBoardNav !== false) {
+          if(flag === true) {
+            this.handleRowClick(this.state.data[y], y, x, e);
+            this.handleSelectRow(this.state.data[y], true, e, y);
+          }
+          else if (flag === 'front') {
+            this.handleRowClick(this.state.data[0], 0, x, e);
+            this.handleSelectRow(this.state.data[0], true, e, 0)
+          }
+          else if (flag === 'back' && this.state.oldFlag === true) {
+            this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
+            this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
+          } else if (flag === 'back' && this.state.oldFlag !== true) {
+            this.handleRowClick(this.state.data[0], 0, x, e);
+            this.handleSelectRow(this.state.data[0], true, e, 0);
+          }
+
+          this.setState({ oldFlag: flag });
         }
 
-        this.setState({ oldFlag: flag });
         });
   }
 

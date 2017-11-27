@@ -1196,7 +1196,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          flag = _ref4.flag;
 	      var _props3 = this.props,
 	          pagination = _props3.pagination,
-	          keyBoardNav = _props3.keyBoardNav;
+	          options = _props3.options;
 	      var _state = this.state,
 	          x = _state.x,
 	          y = _state.y,
@@ -1271,25 +1271,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this.setState(function () {
 	        return {
-	          x: x, y: y, currPage: flag === true || keyBoardNav === false ? currPage : _this6.state.currPage, reset: false
+	          x: x, y: y, currPage: flag === true ? currPage : keyBoardNav === false ? options.page : _this6.state.currPage, reset: false
 	        };
 	      }, function () {
 
-	        if (flag === true) {
-	          _this6.handleRowClick(_this6.state.data[y], y, x, e);
-	          _this6.handleSelectRow(_this6.state.data[y], true, e, y);
-	        } else if (flag === 'front') {
-	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
-	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
-	        } else if (flag === 'back' && _this6.state.oldFlag === true) {
-	          _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
-	          _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
-	        } else if (flag === 'back' && _this6.state.oldFlag !== true) {
-	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
-	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
-	        }
+	        if (keyBoardNav !== false) {
+	          if (flag === true) {
+	            _this6.handleRowClick(_this6.state.data[y], y, x, e);
+	            _this6.handleSelectRow(_this6.state.data[y], true, e, y);
+	          } else if (flag === 'front') {
+	            _this6.handleRowClick(_this6.state.data[0], 0, x, e);
+	            _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
+	          } else if (flag === 'back' && _this6.state.oldFlag === true) {
+	            _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
+	            _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
+	          } else if (flag === 'back' && _this6.state.oldFlag !== true) {
+	            _this6.handleRowClick(_this6.state.data[0], 0, x, e);
+	            _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
+	          }
 
-	        _this6.setState({ oldFlag: flag });
+	          _this6.setState({ oldFlag: flag });
+	        }
 	      });
 	    }
 	  }, {
