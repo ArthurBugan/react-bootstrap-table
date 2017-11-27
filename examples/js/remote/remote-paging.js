@@ -8,9 +8,8 @@ export default class RemotePaging extends React.Component {
   }
 
   render() {
-
     return (
-      <BootstrapTable data={ this.props.data } remote={ true } pagination={ true } keyBoardNav
+      <BootstrapTable data={ this.props.data } remote={ true } pagination={ true } keyBoardNav={false}
                       fetchInfo={ { dataTotalSize: this.props.totalDataSize } }
                       options={ { sizePerPage: this.props.sizePerPage,
                                   onPageChange: this.props.onPageChange,

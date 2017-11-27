@@ -352,12 +352,14 @@ class BootstrapTable extends Component {
       this.reset();
     }
 
-    if(JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
-      if(nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== nextProps.options.page) {
-        if( (nextProps.options.page) > (nextProps.options.oldPage) ) {
-          this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
-        } else if( (nextProps.options.page) < (nextProps.options.oldPage) ) {
-          this.handleNavigateCell({x: 0, y: -1, flag: 'back'});
+    if(typeof nextProps.keyBoardNav === 'object') {
+      if(JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+        if(nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== nextProps.options.page) {
+          if( (nextProps.options.page) > (nextProps.options.oldPage) ) {
+            this.handleNavigateCell({x: 0, y: 1, flag: 'front'});
+          } else if( (nextProps.options.page) < (nextProps.options.oldPage) ) {
+            this.handleNavigateCell({x: 0, y: -1, flag: 'back'});
+          }
         }
       }
     }
@@ -685,7 +687,7 @@ class BootstrapTable extends Component {
   }
 
   handleNavigateCell = ({ x: offSetX, y: offSetY, lastEditCell, flag }, e) => {
-    const { pagination, options, keyBoardNav } = this.props;
+    const { pagination, options } = this.props;
     let { x, y, currPage } = this.state;
     x += offSetX;
     y += offSetY;
@@ -756,29 +758,27 @@ class BootstrapTable extends Component {
 
     this.setState(() => {
       return {
-        x, y, currPage: flag === true ? currPage : keyBoardNav === false ? options.page : this.state.currPage, reset: false
+        x, y, currPage: flag === true ? currPage : this.state.currPage, reset: false
       };
     }, () => {
 
-        if(keyBoardNav !== false) {
-          if(flag === true) {
-            this.handleRowClick(this.state.data[y], y, x, e);
-            this.handleSelectRow(this.state.data[y], true, e, y);
-          }
-          else if (flag === 'front') {
-            this.handleRowClick(this.state.data[0], 0, x, e);
-            this.handleSelectRow(this.state.data[0], true, e, 0)
-          }
-          else if (flag === 'back' && this.state.oldFlag === true) {
-            this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
-            this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
-          } else if (flag === 'back' && this.state.oldFlag !== true) {
-            this.handleRowClick(this.state.data[0], 0, x, e);
-            this.handleSelectRow(this.state.data[0], true, e, 0);
-          }
-
-          this.setState({ oldFlag: flag });
+        if(flag === true) {
+          this.handleRowClick(this.state.data[y], y, x, e);
+          this.handleSelectRow(this.state.data[y], true, e, y);
         }
+        else if (flag === 'front') {
+          this.handleRowClick(this.state.data[0], 0, x, e);
+          this.handleSelectRow(this.state.data[0], true, e, 0)
+        }
+        else if (flag === 'back' && this.state.oldFlag === true) {
+          this.handleRowClick(this.state.data[this.state.data.length - 1], this.state.data.length - 1, x, e);
+          this.handleSelectRow(this.state.data[this.state.data.length - 1], true, e, this.state.data.length - 1);
+        } else if (flag === 'back' && this.state.oldFlag !== true) {
+          this.handleRowClick(this.state.data[0], 0, x, e);
+          this.handleSelectRow(this.state.data[0], true, e, 0);
+        }
+
+        this.setState({ oldFlag: flag });
 
         });
   }

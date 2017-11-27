@@ -163,6 +163,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -809,12 +811,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.reset();
 	      }
 
-	      if (JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
-	        if (nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== nextProps.options.page) {
-	          if (nextProps.options.page > nextProps.options.oldPage) {
-	            this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
-	          } else if (nextProps.options.page < nextProps.options.oldPage) {
-	            this.handleNavigateCell({ x: 0, y: -1, flag: 'back' });
+	      if (_typeof(nextProps.keyBoardNav) === 'object') {
+	        if (JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data)) {
+	          if (nextProps.options.oldPage !== undefined && nextProps.options.oldPage !== nextProps.options.page) {
+	            if (nextProps.options.page > nextProps.options.oldPage) {
+	              this.handleNavigateCell({ x: 0, y: 1, flag: 'front' });
+	            } else if (nextProps.options.page < nextProps.options.oldPage) {
+	              this.handleNavigateCell({ x: 0, y: -1, flag: 'back' });
+	            }
 	          }
 	        }
 	      }
@@ -1196,8 +1200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          flag = _ref4.flag;
 	      var _props3 = this.props,
 	          pagination = _props3.pagination,
-	          options = _props3.options,
-	          keyBoardNav = _props3.keyBoardNav;
+	          options = _props3.options;
 	      var _state = this.state,
 	          x = _state.x,
 	          y = _state.y,
@@ -1272,27 +1275,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this.setState(function () {
 	        return {
-	          x: x, y: y, currPage: flag === true ? currPage : keyBoardNav === false ? options.page : _this6.state.currPage, reset: false
+	          x: x, y: y, currPage: flag === true ? currPage : _this6.state.currPage, reset: false
 	        };
 	      }, function () {
 
-	        if (keyBoardNav !== false) {
-	          if (flag === true) {
-	            _this6.handleRowClick(_this6.state.data[y], y, x, e);
-	            _this6.handleSelectRow(_this6.state.data[y], true, e, y);
-	          } else if (flag === 'front') {
-	            _this6.handleRowClick(_this6.state.data[0], 0, x, e);
-	            _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
-	          } else if (flag === 'back' && _this6.state.oldFlag === true) {
-	            _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
-	            _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
-	          } else if (flag === 'back' && _this6.state.oldFlag !== true) {
-	            _this6.handleRowClick(_this6.state.data[0], 0, x, e);
-	            _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
-	          }
-
-	          _this6.setState({ oldFlag: flag });
+	        if (flag === true) {
+	          _this6.handleRowClick(_this6.state.data[y], y, x, e);
+	          _this6.handleSelectRow(_this6.state.data[y], true, e, y);
+	        } else if (flag === 'front') {
+	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
+	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
+	        } else if (flag === 'back' && _this6.state.oldFlag === true) {
+	          _this6.handleRowClick(_this6.state.data[_this6.state.data.length - 1], _this6.state.data.length - 1, x, e);
+	          _this6.handleSelectRow(_this6.state.data[_this6.state.data.length - 1], true, e, _this6.state.data.length - 1);
+	        } else if (flag === 'back' && _this6.state.oldFlag !== true) {
+	          _this6.handleRowClick(_this6.state.data[0], 0, x, e);
+	          _this6.handleSelectRow(_this6.state.data[0], true, e, 0);
 	        }
+
+	        _this6.setState({ oldFlag: flag });
 	      });
 	    }
 	  }, {
