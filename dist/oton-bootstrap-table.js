@@ -1196,7 +1196,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          flag = _ref4.flag;
 	      var _props3 = this.props,
 	          pagination = _props3.pagination,
-	          options = _props3.options;
+	          options = _props3.options,
+	          keyBoardNav = _props3.keyBoardNav;
 	      var _state = this.state,
 	          x = _state.x,
 	          y = _state.y,

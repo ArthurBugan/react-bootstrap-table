@@ -685,7 +685,7 @@ class BootstrapTable extends Component {
   }
 
   handleNavigateCell = ({ x: offSetX, y: offSetY, lastEditCell, flag }, e) => {
-    const { pagination, options } = this.props;
+    const { pagination, options, keyBoardNav } = this.props;
     let { x, y, currPage } = this.state;
     x += offSetX;
     y += offSetY;
