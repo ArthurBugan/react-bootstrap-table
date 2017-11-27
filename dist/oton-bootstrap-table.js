@@ -1194,7 +1194,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          offSetY = _ref4.y,
 	          lastEditCell = _ref4.lastEditCell,
 	          flag = _ref4.flag;
-	      var pagination = this.props.pagination;
+	      var _props3 = this.props,
+	          pagination = _props3.pagination,
+	          keyBoardNav = _props3.keyBoardNav;
 	      var _state = this.state,
 	          x = _state.x,
 	          y = _state.y,
@@ -1269,7 +1271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this.setState(function () {
 	        return {
-	          x: x, y: y, currPage: flag === true ? currPage : _this6.state.currPage, reset: false
+	          x: x, y: y, currPage: flag === true || keyBoardNav === false ? currPage : _this6.state.currPage, reset: false
 	        };
 	      }, function () {
 
@@ -1293,9 +1295,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleRowClick__REACT_HOT_LOADER__',
 	    value: function __handleRowClick__REACT_HOT_LOADER__(row, rowIndex, columnIndex, e) {
-	      var _props3 = this.props,
-	          options = _props3.options,
-	          keyBoardNav = _props3.keyBoardNav;
+	      var _props4 = this.props,
+	          options = _props4.options,
+	          keyBoardNav = _props4.keyBoardNav;
 
 	      if (options.onRowClick) {
 	        options.onRowClick(row, columnIndex, rowIndex);
@@ -1697,9 +1699,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleFilterData__REACT_HOT_LOADER__',
 	    value: function __handleFilterData__REACT_HOT_LOADER__(filterObj) {
-	      var _props4 = this.props,
-	          filter = _props4.autoCollapse.filter,
-	          options = _props4.options;
+	      var _props5 = this.props,
+	          filter = _props5.autoCollapse.filter,
+	          options = _props5.options;
 	      var onFilterChange = options.onFilterChange,
 	          pageStartIndex = options.pageStartIndex;
 
@@ -1904,14 +1906,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'renderToolBar',
 	    value: function renderToolBar() {
-	      var _props5 = this.props,
-	          exportCSV = _props5.exportCSV,
-	          selectRow = _props5.selectRow,
-	          insertRow = _props5.insertRow,
-	          deleteRow = _props5.deleteRow,
-	          search = _props5.search,
-	          children = _props5.children,
-	          keyField = _props5.keyField;
+	      var _props6 = this.props,
+	          exportCSV = _props6.exportCSV,
+	          selectRow = _props6.selectRow,
+	          insertRow = _props6.insertRow,
+	          deleteRow = _props6.deleteRow,
+	          search = _props6.search,
+	          children = _props6.children,
+	          keyField = _props6.keyField;
 
 	      var enableShowOnlySelected = selectRow && selectRow.showOnlySelected;
 	      var print = typeof this.props.options.printToolBar === 'undefined' ? true : this.props.options.printToolBar;

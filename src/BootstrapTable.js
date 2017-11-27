@@ -685,11 +685,10 @@ class BootstrapTable extends Component {
   }
 
   handleNavigateCell = ({ x: offSetX, y: offSetY, lastEditCell, flag }, e) => {
-    const { pagination } = this.props;
+    const { pagination, keyBoardNav } = this.props;
     let { x, y, currPage } = this.state;
     x += offSetX;
     y += offSetY;
-
 
     const columns = this.store.getColInfos();
     const visibleRowSize = this.state.data.length;
@@ -757,7 +756,7 @@ class BootstrapTable extends Component {
 
     this.setState(() => {
       return {
-        x, y, currPage: flag === true ? currPage : this.state.currPage, reset: false
+        x, y, currPage: flag === true || keyBoardNav === false ? currPage : this.state.currPage, reset: false
       };
     }, () => {
 
