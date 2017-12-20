@@ -939,7 +939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { style: { height: 'inherit' } },
 	        _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)('react-bs-table-container', this.props.className, this.props.containerClass),

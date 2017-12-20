@@ -461,7 +461,7 @@ class BootstrapTable extends Component {
     const showToolbarOnBottom = toolbarPosition !== Const.TOOLBAR_POS_TOP;
 
     return (
-			<div>
+			<div style={{ height: 'inherit'}}>
 				<div className={ classSet('react-bs-table-container', this.props.className, this.props.containerClass) }
 					style={ this.props.containerStyle }>
 					{ showToolbarOnTop ? toolBar : null }
@@ -538,7 +538,6 @@ class BootstrapTable extends Component {
 							onEditCell={ this.handleEditCell } />
 
 					</div>
-
 					<Alert stack={ { limit: 3 } } />
 				</div>
 					{
