@@ -535,15 +535,16 @@ class BootstrapTable extends Component {
             y={ this.state.y }
             withoutTabIndex={ this.props.withoutTabIndex }
             onEditCell={ this.handleEditCell } />
-            {
-              tableFooter
-            }
+
         </div>
         { tableFilter }
         { showPaginationOnBottom ? pagination : null }
 
         { showToolbarOnBottom ? toolBar : null }
         <Alert stack={ { limit: 3 } } />
+				{
+					tableFooter
+				}
       </div>
     );
   }
