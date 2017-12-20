@@ -1021,12 +1021,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	              withoutTabIndex: this.props.withoutTabIndex,
 	              onEditCell: this.handleEditCell })
 	          ),
-	          tableFilter,
-	          showPaginationOnBottom ? pagination : null,
-	          showToolbarOnBottom ? toolBar : null,
 	          _react2.default.createElement(_reactSAlert2.default, { stack: { limit: 3 } })
 	        ),
-	        tableFooter
+	        tableFooter,
+	        showPaginationOnBottom ? pagination : null,
+	        tableFilter,
+	        showToolbarOnBottom ? toolBar : null
 	      );
 	    }
 	  }, {

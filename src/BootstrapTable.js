@@ -538,15 +538,17 @@ class BootstrapTable extends Component {
 							onEditCell={ this.handleEditCell } />
 
 					</div>
-					{ tableFilter }
-					{ showPaginationOnBottom ? pagination : null }
 
-					{ showToolbarOnBottom ? toolBar : null }
 					<Alert stack={ { limit: 3 } } />
 				</div>
-				{
-					tableFooter
-				}
+					{
+						tableFooter
+					}
+					{ showPaginationOnBottom ? pagination : null }
+					{ tableFilter }
+
+
+					{ showToolbarOnBottom ? toolBar : null }
 			</div>
 
     );
