@@ -163,13 +163,13 @@ class TableHeaderColumn extends Component {
       Util.isFunction(className) ? className() : className,
       !isOnlyHead && dataSort ? 'sort-column' : '',
       sortClass);
-
+		// title
     const attr = {};
     if (headerTitle) {
       if (typeof children === 'string' && !headerText) {
-        attr.title = children;
+        attr.title = null;
       } else {
-        attr.title = headerText;
+        attr.title = null;
       }
     }
     return (

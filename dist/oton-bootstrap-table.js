@@ -5187,13 +5187,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        sortClass = _util2.default.isFunction(customSortClass) ? customSortClass(sort, dataField) : customSortClass;
 	      }
 	      var classes = (0, _classnames2.default)(_util2.default.isFunction(className) ? className() : className, !isOnlyHead && dataSort ? 'sort-column' : '', sortClass);
-
+	      // title
 	      var attr = {};
 	      if (headerTitle) {
 	        if (typeof children === 'string' && !headerText) {
-	          attr.title = children;
+	          attr.title = null;
 	        } else {
-	          attr.title = headerText;
+	          attr.title = null;
 	        }
 	      }
 	      return _react2.default.createElement(
