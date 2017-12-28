@@ -909,7 +909,7 @@ class BootstrapTable extends Component {
 				result = selectRow.onSelect(row, isSelected, e, rowIndex);
 			}
 
-			if (typeof skip !== 'undefined' && skip) {
+			if (typeof skip !== 'undefined' && !skip) {
 				if (typeof result === 'undefined' || result !== false) {
 					if (selectRow.mode === Const.ROW_SELECT_SINGLE) {
 						currSelected = isSelected ? [ rowKey ] : [];

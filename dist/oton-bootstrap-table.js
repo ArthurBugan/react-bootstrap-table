@@ -1449,7 +1449,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        result = selectRow.onSelect(row, isSelected, e, rowIndex);
 	      }
 
-	      if (typeof skip !== 'undefined' && skip) {
+	      if (typeof skip !== 'undefined' && !skip) {
 	        if (typeof result === 'undefined' || result !== false) {
 	          if (selectRow.mode === _Const2.default.ROW_SELECT_SINGLE) {
 	            currSelected = isSelected ? [rowKey] : [];

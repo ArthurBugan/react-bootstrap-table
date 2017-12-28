@@ -35,7 +35,7 @@ export default class PaginationHookTable extends React.Component {
   }
 
   onPageChange(page, sizePerPage) {
-    alert(`page: ${page}, sizePerPage: ${sizePerPage}`);
+    alert(`PAGE CHANGE! page: ${page}, sizePerPage: ${sizePerPage}`);
   }
 
   render() {
