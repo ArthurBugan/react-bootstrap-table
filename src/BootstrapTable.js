@@ -710,7 +710,11 @@ class BootstrapTable extends Component {
 
       if (currPage <= lastPage) {
 
-        if(flag === true) this.handlePaginationData(currPage === -1 ? 1 : currPage, this.state.sizePerPage);
+        if(flag === true) {
+					if(currPage !== -1) {
+						this.handlePaginationData(currPage, this.state.sizePerPage);
+					}
+				}
       } else {
         return;
       }
@@ -720,7 +724,6 @@ class BootstrapTable extends Component {
       currPage--;
 
       if (currPage > 0) {
-
         if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
         if(currPage === 0) {
@@ -735,7 +738,11 @@ class BootstrapTable extends Component {
         currPage++;
         const lastPage = pagination ? typeof this.refs.pagination !== 'undefined' ? this.refs.pagination.getLastPage() : -1 : -1;
         if (currPage <= lastPage) {
-          if(flag === true) this.handlePaginationData(currPage === -1 ? 1 : currPage, this.state.sizePerPage);
+          if(flag === true) {
+						if (currPage !== -1) {
+							this.handlePaginationData(currPage, this.state.sizePerPage);
+						}
+					}
         } else {
           return;
         }

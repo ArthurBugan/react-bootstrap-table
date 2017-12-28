@@ -1228,7 +1228,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        if (currPage <= lastPage) {
 
-	          if (flag === true) this.handlePaginationData(currPage === -1 ? 1 : currPage, this.state.sizePerPage);
+	          if (flag === true) {
+	            if (currPage !== -1) {
+	              this.handlePaginationData(currPage, this.state.sizePerPage);
+	            }
+	          }
 	        } else {
 	          return;
 	        }
@@ -1238,7 +1242,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        currPage--;
 
 	        if (currPage > 0) {
-
 	          if (flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
 	        } else {
 	          if (currPage === 0) {
@@ -1253,7 +1256,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          currPage++;
 	          var _lastPage = pagination ? typeof this.refs.pagination !== 'undefined' ? this.refs.pagination.getLastPage() : -1 : -1;
 	          if (currPage <= _lastPage) {
-	            if (flag === true) this.handlePaginationData(currPage === -1 ? 1 : currPage, this.state.sizePerPage);
+	            if (flag === true) {
+	              if (currPage !== -1) {
+	                this.handlePaginationData(currPage, this.state.sizePerPage);
+	              }
+	            }
 	          } else {
 	            return;
 	          }
