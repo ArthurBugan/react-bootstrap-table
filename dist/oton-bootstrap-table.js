@@ -7354,7 +7354,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _this2 = this;
 
 	      document.addEventListener('click', function (e) {
-	        if ($('table tbody tr td').is(':focus')) {} else {
+	        if ($('table tbody tr td').is(':focus')) {
+	          _this2.setState({ canFocus: true });
+	        } else {
+	          _this2.setState({ canFocus: false });
 	          _this2.handleSelectRow(1, false, e);
 	        }
 	      });
@@ -7362,7 +7365,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      document.removeEventListener('click');
+	      var _this3 = this;
+
+	      document.removeEventListener('click', function (e) {
+	        if ($('table tbody tr td').is(':focus')) {} else {
+	          _this3.handleSelectRow(1, false, e);
+	        }
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -7522,7 +7531,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (tableColumns.findIndex(function (column) {
 	          return column.props.isFocus !== false;
 	        }) !== -1) {
-	          trClassName += ' rowSelected ';
+	          if (this.state.canFocus) {
+	            trClassName += ' rowSelected ';
+	          }
 	        }
 
 	        var result = [_react2.default.createElement(
@@ -7693,7 +7704,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return false;
 	        }
 	      });
-	      onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
+
+	      if (typeof selectedRow !== 'undefined') {
+	        onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
+	      }
 	    }
 	  }, {
 	    key: '__handleSelectRowColumChange__REACT_HOT_LOADER__',
@@ -7859,7 +7873,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function renderSelectRowColumn(selected, inputType, disabled) {
 	      var CustomComponent = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      var rowIndex = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
 	      var row = arguments[5];
@@ -7867,22 +7881,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'td',
 	        { onClick: function onClick(e) {
-	            _this3.handleClickonSelectColumn(e, !selected, rowIndex, row);
+	            _this4.handleClickonSelectColumn(e, !selected, rowIndex, row);
 	          }, style: { textAlign: 'center' } },
 	        CustomComponent ? _react2.default.createElement(CustomComponent, { type: inputType, checked: selected, disabled: disabled,
 	          rowIndex: rowIndex,
 	          onChange: function onChange(e) {
-	            return _this3.handleSelectRowColumChange(e, rowIndex);
+	            return _this4.handleSelectRowColumChange(e, rowIndex);
 	          } }) : _react2.default.createElement('input', { type: inputType, checked: selected, disabled: disabled,
 	          onChange: function onChange(e) {
-	            return _this3.handleSelectRowColumChange(e, rowIndex);
+	            return _this4.handleSelectRowColumChange(e, rowIndex);
 	          } })
 	      );
 	    }
 	  }, {
 	    key: 'renderExpandRowColumn',
 	    value: function renderExpandRowColumn(isExpandableRow, isExpanded, CustomComponent) {
-	      var _this4 = this;
+	      var _this5 = this;
 
 	      var rowIndex = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
@@ -7900,7 +7914,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        {
 	          className: 'react-bs-table-expand-cell',
 	          onClick: function onClick() {
-	            return _this4.handleClickCell(rowIndex + 1);
+	            return _this5.handleClickCell(rowIndex + 1);
 	          } },
 	        content
 	      );
