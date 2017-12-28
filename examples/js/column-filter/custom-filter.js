@@ -18,7 +18,7 @@ function addProducts(quantity) {
   }
 }
 
-addProducts(5);
+addProducts(0);
 
 class CheckboxFilter extends React.Component {
   constructor(props) {
