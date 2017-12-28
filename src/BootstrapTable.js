@@ -702,7 +702,7 @@ class BootstrapTable extends Component {
     const visibleColumnSize = Object.keys(columns).filter(k => !columns[k].hidden).length;
     if (y >= visibleRowSize) {
       currPage++;
-      const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
+      const lastPage = pagination ? typeof this.refs.pagination !== 'undefined' ? this.refs.pagination.getLastPage() : -1 : -1;
 
       if(currPage > lastPage) {
         currPage = lastPage;
@@ -733,7 +733,7 @@ class BootstrapTable extends Component {
     } else if (x >= visibleColumnSize) {
       if ((y + 1) === visibleRowSize) {
         currPage++;
-        const lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
+        const lastPage = pagination ? typeof this.refs.pagination !== 'undefined' ? this.refs.pagination.getLastPage() : -1 : -1;
         if (currPage <= lastPage) {
           if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
         } else {

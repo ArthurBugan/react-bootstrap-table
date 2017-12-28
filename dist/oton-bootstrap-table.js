@@ -1220,7 +1220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }).length;
 	      if (y >= visibleRowSize) {
 	        currPage++;
-	        var lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
+	        var lastPage = pagination ? typeof this.refs.pagination !== 'undefined' ? this.refs.pagination.getLastPage() : -1 : -1;
 
 	        if (currPage > lastPage) {
 	          currPage = lastPage;
@@ -1251,7 +1251,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else if (x >= visibleColumnSize) {
 	        if (y + 1 === visibleRowSize) {
 	          currPage++;
-	          var _lastPage = pagination ? this.refs.pagination.getLastPage() : -1;
+	          var _lastPage = pagination ? typeof this.refs.pagination !== 'undefined' ? this.refs.pagination.getLastPage() : -1 : -1;
 	          if (currPage <= _lastPage) {
 	            if (flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
 	          } else {
