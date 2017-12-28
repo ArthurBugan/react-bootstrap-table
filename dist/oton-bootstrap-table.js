@@ -7354,10 +7354,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _this2 = this;
 
 	      document.addEventListener('click', function (e) {
-	        if ($('table tbody tr td').is(':focus')) {
-	          _this2.setState({ canFocus: true });
-	        } else {
-	          _this2.setState({ canFocus: false });
+	        if ($('table tbody tr td').is(':focus')) {} else {
+	          _this2.setState({ x: -1 });
 	          _this2.handleSelectRow(1, false, e);
 	        }
 	      });
@@ -7369,6 +7367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      document.removeEventListener('click', function (e) {
 	        if ($('table tbody tr td').is(':focus')) {} else {
+	          _this3.setState({ x: -1 });
 	          _this3.handleSelectRow(1, false, e);
 	        }
 	      });
@@ -7531,9 +7530,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (tableColumns.findIndex(function (column) {
 	          return column.props.isFocus !== false;
 	        }) !== -1) {
-	          if (this.state.canFocus) {
-	            trClassName += ' rowSelected ';
-	          }
+	          trClassName += ' rowSelected ';
 	        }
 
 	        var result = [_react2.default.createElement(

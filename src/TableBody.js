@@ -22,9 +22,8 @@ class TableBody extends Component {
 	componentDidMount() {
 		document.addEventListener('click', (e) => {
 			if($('table tbody tr td').is(':focus')) {
-				this.setState({ canFocus: true});
 			} else {
-				this.setState({ canFocus: false });
+				this.setState({ x: -1 });
 				this.handleSelectRow(1, false, e)
 			}
 		});
@@ -34,6 +33,7 @@ class TableBody extends Component {
 		document.removeEventListener('click', (e) => {
 			if($('table tbody tr td').is(':focus')) {
 			} else {
+				this.setState({ x: -1 });
 				this.handleSelectRow(1, false, e)
 			}
 		});
@@ -206,9 +206,7 @@ class TableBody extends Component {
       if(tableColumns.findIndex((column) => {
 				return column.props.isFocus !== false
 			}) !== -1 ) {
-				if(this.state.canFocus) {
 					trClassName += ' rowSelected ';
-				}
       }
 
       const result = [
