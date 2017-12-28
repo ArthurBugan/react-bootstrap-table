@@ -29,13 +29,13 @@ class TableBody extends Component {
 	}
 
 	componentWillUnmount() {
-		document.addEventListener('click', (e) => {
+		document.removeEventListener('click', (e) => {
 			if($('table tbody tr td').is(':focus')) {
 			} else {
 				this.handleSelectRow(1, false, e)
 			}
 		});
-		}
+	}
 
   render() {
     const { cellEdit, beforeShowError, x, y, keyBoardNav, trStyle, version } = this.props;
@@ -204,7 +204,7 @@ class TableBody extends Component {
       if(tableColumns.findIndex((column) => {
 				return column.props.isFocus !== false
 			}) !== -1 ) {
-					trClassName += ' rowSelected ';
+        trClassName += ' rowSelected ';
       }
 
       const result = [
@@ -361,10 +361,7 @@ class TableBody extends Component {
         return false;
       }
     });
-
-		if(typeof selectedRow !== 'undefined') {
-			onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
-		}
+    onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
   }
 
   handleSelectRowColumChange = (e, rowIndex) => {

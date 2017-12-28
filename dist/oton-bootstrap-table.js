@@ -7364,7 +7364,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function componentWillUnmount() {
 	      var _this3 = this;
 
-	      document.addEventListener('click', function (e) {
+	      document.removeEventListener('click', function (e) {
 	        if ($('table tbody tr td').is(':focus')) {} else {
 	          _this3.handleSelectRow(1, false, e);
 	        }
@@ -7699,10 +7699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return false;
 	        }
 	      });
-
-	      if (typeof selectedRow !== 'undefined') {
-	        onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
-	      }
+	      onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
 	    }
 	  }, {
 	    key: '__handleSelectRowColumChange__REACT_HOT_LOADER__',
