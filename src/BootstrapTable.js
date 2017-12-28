@@ -763,7 +763,7 @@ class BootstrapTable extends Component {
 
     this.setState(() => {
       return {
-        x, y, currPage: flag === true ? currPage : this.state.currPage, reset: false
+        x, y, currPage: flag === true ? currPage === -1 ? 1 : currPage : this.state.currPage, reset: false
       };
     }, () => {
 

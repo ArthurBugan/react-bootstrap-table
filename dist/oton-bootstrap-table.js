@@ -1279,7 +1279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this.setState(function () {
 	        return {
-	          x: x, y: y, currPage: flag === true ? currPage : _this6.state.currPage, reset: false
+	          x: x, y: y, currPage: flag === true ? currPage === -1 ? 1 : currPage : _this6.state.currPage, reset: false
 	        };
 	      }, function () {
 
