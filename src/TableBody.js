@@ -362,7 +362,7 @@ class TableBody extends Component {
       }
     });
 		if(typeof selectedRow !== 'undefined') {
-			onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
+			onSelectRow(selectedRow, isSelected, e, rowIndex - 1, true);
 		}
   }
 

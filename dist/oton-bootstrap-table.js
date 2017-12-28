@@ -1439,7 +1439,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, {
 	    key: '__handleSelectRow__REACT_HOT_LOADER__',
-	    value: function __handleSelectRow__REACT_HOT_LOADER__(row, isSelected, e, rowIndex) {
+	    value: function __handleSelectRow__REACT_HOT_LOADER__(row, isSelected, e, rowIndex, skip) {
 	      var result = true;
 	      var currSelected = this.store.getSelectedRowKeys();
 	      var rowKey = row[this.store.getKeyField()];
@@ -1449,26 +1449,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	        result = selectRow.onSelect(row, isSelected, e, rowIndex);
 	      }
 
-	      if (typeof result === 'undefined' || result !== false) {
-	        if (selectRow.mode === _Const2.default.ROW_SELECT_SINGLE) {
-	          currSelected = isSelected ? [rowKey] : [];
-	        } else {
-	          if (isSelected) {
-	            currSelected.push(rowKey);
+	      if (typeof skip !== 'undefined' && skip) {
+	        if (typeof result === 'undefined' || result !== false) {
+	          if (selectRow.mode === _Const2.default.ROW_SELECT_SINGLE) {
+	            currSelected = isSelected ? [rowKey] : [];
 	          } else {
-	            currSelected = currSelected.filter(function (key) {
-	              return rowKey !== key;
-	            });
+	            if (isSelected) {
+	              currSelected.push(rowKey);
+	            } else {
+	              currSelected = currSelected.filter(function (key) {
+	                return rowKey !== key;
+	              });
+	            }
 	          }
-	        }
 
-	        this.store.setSelectedRowKey(currSelected);
-	        this.setState(function () {
-	          return {
-	            selectedRowKeys: currSelected,
-	            reset: false
-	          };
-	        });
+	          this.store.setSelectedRowKey(currSelected);
+	          this.setState(function () {
+	            return {
+	              selectedRowKeys: currSelected,
+	              reset: false
+	            };
+	          });
+	        }
 	      }
 	    }
 	  }, {
@@ -7700,7 +7702,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      });
 	      if (typeof selectedRow !== 'undefined') {
-	        onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
+	        onSelectRow(selectedRow, isSelected, e, rowIndex - 1, true);
 	      }
 	    }
 	  }, {

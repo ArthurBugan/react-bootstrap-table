@@ -900,35 +900,37 @@ class BootstrapTable extends Component {
     });
   }
 
-  handleSelectRow = (row, isSelected, e, rowIndex) => {
-    let result = true;
-    let currSelected = this.store.getSelectedRowKeys();
-    const rowKey = row[ this.store.getKeyField() ];
-    const { selectRow } = this.props;
-    if (selectRow.onSelect) {
-      result = selectRow.onSelect(row, isSelected, e, rowIndex);
-    }
+  handleSelectRow = (row, isSelected, e, rowIndex, skip) => {
+			let result = true;
+			let currSelected = this.store.getSelectedRowKeys();
+			const rowKey = row[ this.store.getKeyField() ];
+			const { selectRow } = this.props;
+			if (selectRow.onSelect) {
+				result = selectRow.onSelect(row, isSelected, e, rowIndex);
+			}
 
-    if (typeof result === 'undefined' || result !== false) {
-      if (selectRow.mode === Const.ROW_SELECT_SINGLE) {
-        currSelected = isSelected ? [ rowKey ] : [];
-      } else {
-        if (isSelected) {
-          currSelected.push(rowKey);
-        } else {
-          currSelected = currSelected.filter(key => rowKey !== key);
-        }
-      }
+			if (typeof skip !== 'undefined' && skip) {
+				if (typeof result === 'undefined' || result !== false) {
+					if (selectRow.mode === Const.ROW_SELECT_SINGLE) {
+						currSelected = isSelected ? [ rowKey ] : [];
+					} else {
+						if (isSelected) {
+							currSelected.push(rowKey);
+						} else {
+							currSelected = currSelected.filter(key => rowKey !== key);
+						}
+					}
 
-      this.store.setSelectedRowKey(currSelected);
-      this.setState(() => {
-        return {
-          selectedRowKeys: currSelected,
-          reset: false
-        };
-      });
-    }
-  }
+					this.store.setSelectedRowKey(currSelected);
+					this.setState(() => {
+						return {
+							selectedRowKeys: currSelected,
+							reset: false
+						};
+					});
+				}
+			}
+  	}
 
   handleEditCell = (newVal, rowIndex, colIndex) => {
     const { beforeSaveCell } = this.props.cellEdit;
