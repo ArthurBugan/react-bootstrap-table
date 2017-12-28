@@ -13,7 +13,8 @@ class TableBody extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currEditCell: null
+      currEditCell: null,
+			x: void 0
     };
 
 		this.handleSelectRow = this.handleSelectRow.bind(this);
@@ -22,6 +23,7 @@ class TableBody extends Component {
 	componentDidMount() {
 		document.addEventListener('click', (e) => {
 			if($('table tbody tr td').is(':focus')) {
+				this.setState({ x: void 0})
 			} else {
 				this.setState({ x: -1 });
 				this.handleSelectRow(1, false, e)
@@ -80,7 +82,7 @@ class TableBody extends Component {
     let tableRows = this.props.data.map(function(data, r) {
       const tableColumns = this.props.columns.filter(_ => _ != null).map(function(column, i) {
         const fieldValue = data[column.name];
-        const isFocusCell = r === y && i === x;
+        const isFocusCell = r === y && i === this.state.x || x;
         if (column.name !== this.props.keyField && // Key field can't be edit
           column.editable && // column is editable? default is true, user can set it false
           column.editable.readOnly !== true &&
