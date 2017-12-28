@@ -7699,7 +7699,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return false;
 	        }
 	      });
-	      onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
+	      if (typeof selectedRow !== 'undefined') {
+	        onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
+	      }
 	    }
 	  }, {
 	    key: '__handleSelectRowColumChange__REACT_HOT_LOADER__',

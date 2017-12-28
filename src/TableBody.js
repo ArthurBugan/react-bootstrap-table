@@ -361,7 +361,9 @@ class TableBody extends Component {
         return false;
       }
     });
-    onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
+		if(typeof selectedRow !== 'undefined') {
+			onSelectRow(selectedRow, isSelected, e, rowIndex - 1);
+		}
   }
 
   handleSelectRowColumChange = (e, rowIndex) => {
