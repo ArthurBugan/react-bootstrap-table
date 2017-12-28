@@ -22,7 +22,7 @@ addProducts(5);
 export default class SimpleNavTable extends React.Component {
   render() {
     return (
-      <BootstrapTable data={ products } keyBoardNav>
+      <BootstrapTable data={ products } keyBoardNav options={ { onRowSelect: () => null } }>
           <TableHeaderColumn dataField='id' isKey={ true }>Product ID</TableHeaderColumn>
           <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
           <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>

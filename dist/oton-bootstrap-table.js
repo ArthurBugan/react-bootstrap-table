@@ -7273,6 +7273,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.state = {
 	      currEditCell: null
 	    };
+
+	    _this.handleSelectRow = _this.handleSelectRow.bind(_this);
 	    return _this;
 	  }
 
@@ -7345,6 +7347,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '__handleCellKeyDown__REACT_HOT_LOADER__',
 	    value: function __handleCellKeyDown__REACT_HOT_LOADER__() {
 	      return this.__handleCellKeyDown__REACT_HOT_LOADER__.apply(this, arguments);
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      document.addEventListener('click', function (e) {
+	        if ($('table tbody tr td').is(':focus')) {} else {
+	          _this2.handleSelectRow(1, false, e);
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      document.removeEventListener('click');
 	    }
 	  }, {
 	    key: 'render',
@@ -7506,6 +7524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }) !== -1) {
 	          trClassName += ' rowSelected ';
 	        }
+
 	        var result = [_react2.default.createElement(
 	          _TableRow2.default,
 	          {
@@ -7645,6 +7664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      if (_util2.default.isSelectRowDefined(selectRow.mode)) cellIndex--;
 	      if (this._isExpandColumnVisible()) cellIndex--;
+
 	      onRowClick(this.props.data[rowIndex - 1], rowIndex - 1, cellIndex, e);
 	      this.handleSelectRow(rowIndex, true, e);
 	    }
@@ -7839,7 +7859,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function renderSelectRowColumn(selected, inputType, disabled) {
 	      var CustomComponent = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      var rowIndex = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
 	      var row = arguments[5];
@@ -7847,22 +7867,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'td',
 	        { onClick: function onClick(e) {
-	            _this2.handleClickonSelectColumn(e, !selected, rowIndex, row);
+	            _this3.handleClickonSelectColumn(e, !selected, rowIndex, row);
 	          }, style: { textAlign: 'center' } },
 	        CustomComponent ? _react2.default.createElement(CustomComponent, { type: inputType, checked: selected, disabled: disabled,
 	          rowIndex: rowIndex,
 	          onChange: function onChange(e) {
-	            return _this2.handleSelectRowColumChange(e, rowIndex);
+	            return _this3.handleSelectRowColumChange(e, rowIndex);
 	          } }) : _react2.default.createElement('input', { type: inputType, checked: selected, disabled: disabled,
 	          onChange: function onChange(e) {
-	            return _this2.handleSelectRowColumChange(e, rowIndex);
+	            return _this3.handleSelectRowColumChange(e, rowIndex);
 	          } })
 	      );
 	    }
 	  }, {
 	    key: 'renderExpandRowColumn',
 	    value: function renderExpandRowColumn(isExpandableRow, isExpanded, CustomComponent) {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      var rowIndex = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
@@ -7880,7 +7900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        {
 	          className: 'react-bs-table-expand-cell',
 	          onClick: function onClick() {
-	            return _this3.handleClickCell(rowIndex + 1);
+	            return _this4.handleClickCell(rowIndex + 1);
 	          } },
 	        content
 	      );

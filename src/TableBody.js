@@ -15,7 +15,22 @@ class TableBody extends Component {
     this.state = {
       currEditCell: null
     };
+
+		this.handleSelectRow = this.handleSelectRow.bind(this);
   }
+
+	componentDidMount() {
+		document.addEventListener('click', (e) => {
+			if($('table tbody tr td').is(':focus')) {
+			} else {
+				this.handleSelectRow(1, false, e)
+			}
+		});
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('click')
+	}
 
   render() {
     const { cellEdit, beforeShowError, x, y, keyBoardNav, trStyle, version } = this.props;
@@ -181,9 +196,12 @@ class TableBody extends Component {
           this.props.expandParentClass;
       }
       trClassName = trClassName.replace(/rowSelected/g, "");
-      if(tableColumns.findIndex((column) => column.props.isFocus !== false ) !== -1 ) {
+      if(tableColumns.findIndex((column) => {
+				return column.props.isFocus !== false
+			}) !== -1 ) {
         trClassName += ' rowSelected ';
       }
+
       const result = [
               <TableRow
                 isSelected={ selected }
@@ -317,6 +335,7 @@ class TableBody extends Component {
     const { onRowClick, selectRow } = this.props;
     if (Utils.isSelectRowDefined(selectRow.mode)) cellIndex--;
     if (this._isExpandColumnVisible()) cellIndex--;
+
     onRowClick(this.props.data[rowIndex - 1], rowIndex - 1, cellIndex, e);
     this.handleSelectRow(rowIndex, true, e);
   }
