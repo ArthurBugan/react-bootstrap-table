@@ -7271,8 +7271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    _this.state = {
-	      currEditCell: null,
-	      x: void 0
+	      currEditCell: null
 	    };
 
 	    _this.handleSelectRow = _this.handleSelectRow.bind(_this);
@@ -7355,10 +7354,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _this2 = this;
 
 	      document.addEventListener('click', function (e) {
-	        if ($('table tbody tr td').is(':focus')) {
-	          _this2.setState({ x: void 0 });
-	        } else {
-	          _this2.setState({ x: -1 });
+	        if ($('table tbody tr td').is(':focus')) {} else {
 	          _this2.handleSelectRow(1, false, e);
 	        }
 	      });
@@ -7368,9 +7364,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function componentWillUnmount() {
 	      var _this3 = this;
 
-	      document.removeEventListener('click', function (e) {
+	      document.addEventListener('click', function (e) {
 	        if ($('table tbody tr td').is(':focus')) {} else {
-	          _this3.setState({ x: -1 });
 	          _this3.handleSelectRow(1, false, e);
 	        }
 	      });
@@ -7424,7 +7419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return _ != null;
 	        }).map(function (column, i) {
 	          var fieldValue = data[column.name];
-	          var isFocusCell = r === y && i === this.state.x || x;
+	          var isFocusCell = r === y && i === x;
 	          if (column.name !== this.props.keyField && // Key field can't be edit
 	          column.editable && // column is editable? default is true, user can set it false
 	          column.editable.readOnly !== true && this.state.currEditCell !== null && this.state.currEditCell.rid === r && this.state.currEditCell.cid === i && noneditableRows.indexOf(data[this.props.keyField]) === -1) {

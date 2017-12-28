@@ -13,8 +13,7 @@ class TableBody extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currEditCell: null,
-			x: void 0
+      currEditCell: null
     };
 
 		this.handleSelectRow = this.handleSelectRow.bind(this);
@@ -23,23 +22,20 @@ class TableBody extends Component {
 	componentDidMount() {
 		document.addEventListener('click', (e) => {
 			if($('table tbody tr td').is(':focus')) {
-				this.setState({ x: void 0})
 			} else {
-				this.setState({ x: -1 });
 				this.handleSelectRow(1, false, e)
 			}
 		});
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', (e) => {
+		document.addEventListener('click', (e) => {
 			if($('table tbody tr td').is(':focus')) {
 			} else {
-				this.setState({ x: -1 });
 				this.handleSelectRow(1, false, e)
 			}
 		});
-	}
+		}
 
   render() {
     const { cellEdit, beforeShowError, x, y, keyBoardNav, trStyle, version } = this.props;
@@ -82,7 +78,7 @@ class TableBody extends Component {
     let tableRows = this.props.data.map(function(data, r) {
       const tableColumns = this.props.columns.filter(_ => _ != null).map(function(column, i) {
         const fieldValue = data[column.name];
-        const isFocusCell = r === y && i === this.state.x || x;
+        const isFocusCell = r === y && i === x;
         if (column.name !== this.props.keyField && // Key field can't be edit
           column.editable && // column is editable? default is true, user can set it false
           column.editable.readOnly !== true &&
