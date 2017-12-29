@@ -31,8 +31,8 @@ class TableBody extends Component {
 	handleFocus = (e) => {
 		if($('table tbody tr td').is(':focus')) {
 		} else {
-			let table = $('table:last tbody tr').hasClass('rowSelected');
-			if(table) {
+			let table = $('table:visible')[$('table:visible').length -1];
+			if($(table).find('tbody tr').hasClass('rowSelected')) {
 				this.handleSelectRow(1, false, e)
 			}
 		}
