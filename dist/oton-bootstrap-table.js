@@ -826,6 +826,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      $('table tbody tr:first td:first').trigger('click');
 	      this._adjustTable();
 	      window.addEventListener('resize', this._adjustTable);
 	      this.refs.body.refs.container.addEventListener('scroll', this._scrollHeader);
