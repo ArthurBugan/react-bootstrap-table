@@ -17,24 +17,22 @@ class TableBody extends Component {
     };
 
 		this.handleSelectRow = this.handleSelectRow.bind(this);
+		this.handleFocus = this.handleFocus.bind(this);
   }
 
 	componentDidMount() {
-		document.addEventListener('click', (e) => {
-			if($('table tbody tr td').is(':focus')) {
-			} else {
-				this.handleSelectRow(1, false, e)
-			}
-		});
+		document.addEventListener('click', this.handleFocus);
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', (e) => {
-			if($('table tbody tr td').is(':focus')) {
-			} else {
-				this.handleSelectRow(1, false, e)
-			}
-		});
+		document.removeEventListener('click', this.handleFocus);
+	}
+
+	handleFocus = (e) => {
+		if($('table tbody tr td').is(':focus')) {
+		} else {
+			this.handleSelectRow(1, false, e)
+		}
 	}
 
   render() {

@@ -7216,6 +7216,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var _this = _possibleConstructorReturn(this, (TableBody.__proto__ || Object.getPrototypeOf(TableBody)).call(this, props));
 
+	    _this.handleFocus = function () {
+	      return _this.__handleFocus__REACT_HOT_LOADER__.apply(_this, arguments);
+	    };
+
 	    _this.handleCellKeyDown = function () {
 	      return _this.__handleCellKeyDown__REACT_HOT_LOADER__.apply(_this, arguments);
 	    };
@@ -7277,6 +7281,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    _this.handleSelectRow = _this.handleSelectRow.bind(_this);
+	    _this.handleFocus = _this.handleFocus.bind(_this);
 	    return _this;
 	  }
 
@@ -7351,26 +7356,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return this.__handleCellKeyDown__REACT_HOT_LOADER__.apply(this, arguments);
 	    }
 	  }, {
+	    key: '__handleFocus__REACT_HOT_LOADER__',
+	    value: function __handleFocus__REACT_HOT_LOADER__() {
+	      return this.__handleFocus__REACT_HOT_LOADER__.apply(this, arguments);
+	    }
+	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this2 = this;
-
-	      document.addEventListener('click', function (e) {
-	        if ($('table tbody tr td').is(':focus')) {} else {
-	          _this2.handleSelectRow(1, false, e);
-	        }
-	      });
+	      document.addEventListener('click', this.handleFocus);
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      var _this3 = this;
-
-	      document.removeEventListener('click', function (e) {
-	        if ($('table tbody tr td').is(':focus')) {} else {
-	          _this3.handleSelectRow(1, false, e);
-	        }
-	      });
+	      document.removeEventListener('click', this.handleFocus);
+	    }
+	  }, {
+	    key: '__handleFocus__REACT_HOT_LOADER__',
+	    value: function __handleFocus__REACT_HOT_LOADER__(e) {
+	      if ($('table tbody tr td').is(':focus')) {} else {
+	        this.handleSelectRow(1, false, e);
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -7869,7 +7874,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function renderSelectRowColumn(selected, inputType, disabled) {
 	      var CustomComponent = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
-	      var _this4 = this;
+	      var _this2 = this;
 
 	      var rowIndex = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
 	      var row = arguments[5];
@@ -7877,22 +7882,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'td',
 	        { onClick: function onClick(e) {
-	            _this4.handleClickonSelectColumn(e, !selected, rowIndex, row);
+	            _this2.handleClickonSelectColumn(e, !selected, rowIndex, row);
 	          }, style: { textAlign: 'center' } },
 	        CustomComponent ? _react2.default.createElement(CustomComponent, { type: inputType, checked: selected, disabled: disabled,
 	          rowIndex: rowIndex,
 	          onChange: function onChange(e) {
-	            return _this4.handleSelectRowColumChange(e, rowIndex);
+	            return _this2.handleSelectRowColumChange(e, rowIndex);
 	          } }) : _react2.default.createElement('input', { type: inputType, checked: selected, disabled: disabled,
 	          onChange: function onChange(e) {
-	            return _this4.handleSelectRowColumChange(e, rowIndex);
+	            return _this2.handleSelectRowColumChange(e, rowIndex);
 	          } })
 	      );
 	    }
 	  }, {
 	    key: 'renderExpandRowColumn',
 	    value: function renderExpandRowColumn(isExpandableRow, isExpanded, CustomComponent) {
-	      var _this5 = this;
+	      var _this3 = this;
 
 	      var rowIndex = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
@@ -7910,7 +7915,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        {
 	          className: 'react-bs-table-expand-cell',
 	          onClick: function onClick() {
-	            return _this5.handleClickCell(rowIndex + 1);
+	            return _this3.handleClickCell(rowIndex + 1);
 	          } },
 	        content
 	      );
