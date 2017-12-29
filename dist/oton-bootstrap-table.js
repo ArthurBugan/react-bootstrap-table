@@ -7375,7 +7375,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '__handleFocus__REACT_HOT_LOADER__',
 	    value: function __handleFocus__REACT_HOT_LOADER__(e) {
 	      if ($('table tbody tr td').is(':focus')) {} else {
-	        var table = $('table tbody tr').hasClass('rowSelected');
+	        var table = $('table:last tbody tr').hasClass('rowSelected');
 	        if (table) {
 	          this.handleSelectRow(1, false, e);
 	        }
