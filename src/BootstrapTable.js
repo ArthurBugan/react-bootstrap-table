@@ -706,7 +706,6 @@ class BootstrapTable extends Component {
       const lastPage = pagination ? typeof this.refs.pagination !== 'undefined' ? this.refs.pagination.getLastPage() : -1 : -1;
 
       if(currPage > lastPage) {
-				console.log('Previne passar pra frente ')
 				return;
         currPage = lastPage;
       }
@@ -730,11 +729,8 @@ class BootstrapTable extends Component {
         if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
         if(currPage === 0) {
-					if (typeof enableGoBack !== undefined) {
+						return;
 						currPage = 1;
-					} else {
-						return
-					}
         } else {
           return;
         }
