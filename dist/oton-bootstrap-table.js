@@ -1246,7 +1246,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          if (flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
 	        } else {
 	          if (currPage === 0) {
+	            console.log('currPage === 0');
 	            currPage = 1;
+	            return;
 	          } else {
 	            return;
 	          }
