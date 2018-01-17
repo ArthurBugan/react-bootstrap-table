@@ -1205,7 +1205,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          flag = _ref4.flag;
 	      var _props3 = this.props,
 	          pagination = _props3.pagination,
-	          options = _props3.options;
+	          options = _props3.options,
+	          enableGoBack = _props3.enableGoBack,
+	          enableGoFront = _props3.enableGoFront;
 	      var _state = this.state,
 	          x = _state.x,
 	          y = _state.y,
@@ -1224,6 +1226,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var lastPage = pagination ? typeof this.refs.pagination !== 'undefined' ? this.refs.pagination.getLastPage() : -1 : -1;
 
 	        if (currPage > lastPage) {
+	          console.log('Previne passar pra frente ');
+	          return;
 	          currPage = lastPage;
 	        }
 
@@ -1246,9 +1250,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          if (flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
 	        } else {
 	          if (currPage === 0) {
-	            console.log('currPage === 0');
-	            currPage = 1;
-	            return;
+	            if ((typeof enableGoBack === 'undefined' ? 'undefined' : _typeof(enableGoBack)) !== undefined) {
+	              currPage = 1;
+	            } else {
+	              return;
+	            }
 	          } else {
 	            return;
 	          }

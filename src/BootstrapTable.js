@@ -693,7 +693,7 @@ class BootstrapTable extends Component {
   }
 
   handleNavigateCell = ({ x: offSetX, y: offSetY, lastEditCell, flag }, e) => {
-    const { pagination, options } = this.props;
+    const { pagination, options, enableGoBack, enableGoFront } = this.props;
     let { x, y, currPage } = this.state;
     x += offSetX;
     y += offSetY;
@@ -706,6 +706,8 @@ class BootstrapTable extends Component {
       const lastPage = pagination ? typeof this.refs.pagination !== 'undefined' ? this.refs.pagination.getLastPage() : -1 : -1;
 
       if(currPage > lastPage) {
+				console.log('Previne passar pra frente ')
+				return;
         currPage = lastPage;
       }
 
@@ -728,9 +730,11 @@ class BootstrapTable extends Component {
         if(flag === true) this.handlePaginationData(currPage, this.state.sizePerPage);
       } else {
         if(currPage === 0) {
-					console.log('currPage === 0');
-          currPage = 1;
-					return;
+					if (typeof enableGoBack !== undefined) {
+						currPage = 1;
+					} else {
+						return
+					}
         } else {
           return;
         }
