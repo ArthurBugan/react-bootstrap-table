@@ -399,6 +399,7 @@ class BootstrapTable extends Component {
 		} else {
 			let table = $('table:visible')[$('table:visible').length -1];
 			if($(table).find('tbody tr').hasClass('rowSelected')) {
+				console.log('HandleFOco')
 				this.store.setSelectedRowKey([]);
 				this.setState(() => {
 					return {

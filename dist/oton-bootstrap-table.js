@@ -869,6 +869,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if ($('table tbody tr td').is(':focus')) {} else {
 	        var table = $('table:visible')[$('table:visible').length - 1];
 	        if ($(table).find('tbody tr').hasClass('rowSelected')) {
+	          console.log('HandleFOco');
 	          this.store.setSelectedRowKey([]);
 	          this.setState(function () {
 	            return {
@@ -7512,6 +7513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var key = data[this.props.keyField];
 	        var disable = unselectable.indexOf(key) !== -1;
+	        console.log(this.props.selectedRowKeys);
 	        var selected = this.props.selectedRowKeys.indexOf(key) !== -1;
 	        var selectRowColumn = isSelectRowDefined && !this.props.selectRow.hideSelectColumn ? this.renderSelectRowColumn(selected, inputType, disable, CustomComponent, r, data) : null;
 	        var expandedRowColumn = this.renderExpandRowColumn(this.props.expandableRow && this.props.expandableRow(data), this.props.expanding.indexOf(key) > -1, ExpandColumnCustomComponent, r);

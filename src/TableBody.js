@@ -161,6 +161,7 @@ class TableBody extends Component {
 
       const key = data[this.props.keyField];
       const disable = unselectable.indexOf(key) !== -1;
+			console.log(this.props.selectedRowKeys);
       const selected = this.props.selectedRowKeys.indexOf(key) !== -1;
       const selectRowColumn = isSelectRowDefined && !this.props.selectRow.hideSelectColumn ?
         this.renderSelectRowColumn(selected, inputType, disable, CustomComponent, r, data) : null;
