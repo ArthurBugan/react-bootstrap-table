@@ -31,9 +31,11 @@ class TableBody extends Component {
 
 	handleFocus = (e) => {
 		if($('table tbody tr td').is(':focus')) {
+			this.setState({ enableColor: true })
 		} else {
 			let table = $('table:visible')[$('table:visible').length -1];
 			if($(table).find('tbody tr').hasClass('rowSelected')) {
+				this.setState({ enableColor: false })
 				this.handleSelectRow(1, false, e);
 			}
 		}
@@ -206,6 +208,7 @@ class TableBody extends Component {
       if(tableColumns.findIndex((column) => {
 				return column.props.isFocus !== false
 			}) !== -1 ) {
+				if(this.state.enableColor)
 				trClassName += ' rowSelected ';
       }
 
