@@ -13,11 +13,33 @@ class TableBody extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currEditCell: null
+      currEditCell: null,
+			enableColor: true
     };
-
+		this.handleFocus = this.handleFocus.bind(this);
 		this.handleSelectRow = this.handleSelectRow.bind(this);
   }
+
+	componentDidMount() {
+		document.addEventListener('click', this.handleFocus);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('click', this.handleFocus);
+	}
+
+
+	handleFocus = (e) => {
+		if($('table tbody tr td').is(':focus')) {
+			this.setState({ enableColor: true });
+		} else {
+			let table = $('table:visible')[$('table:visible').length -1];
+			if($(table).find('tbody tr').hasClass('rowSelected')) {
+				this.setState({ enableColor: false });
+				this.handleSelectRow(1, false, e);
+			}
+		}
+	}
 
   render() {
     const { cellEdit, beforeShowError, x, y, keyBoardNav, trStyle, version } = this.props;
@@ -186,7 +208,7 @@ class TableBody extends Component {
       if(tableColumns.findIndex((column) => {
 				return column.props.isFocus !== false
 			}) !== -1 ) {
-				if(this.props.enableColor) {
+				if(this.state.enableColor) {
 					trClassName += ' rowSelected ';
 				}
       }

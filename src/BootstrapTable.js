@@ -43,7 +43,6 @@ class BootstrapTable extends Component {
     this._adjustHeaderWidth = this._adjustHeaderWidth.bind(this);
     this._adjustHeight = this._adjustHeight.bind(this);
     this._adjustTable = this._adjustTable.bind(this);
-		this.handleFocus = this.handleFocus.bind(this);
 
     this.state = {
       data: this.getTableData(),
@@ -53,7 +52,6 @@ class BootstrapTable extends Component {
       sizePerPage: this.props.options.sizePerPage || Const.SIZE_PER_PAGE_LIST[0],
       selectedRowKeys: this.store.getSelectedRowKeys(),
       reset: false,
-			enableColor: true,
       x: this.props.keyBoardNav ? 0 : -1,
       y: this.props.keyBoardNav ? 0 : -1
     };
@@ -370,7 +368,6 @@ class BootstrapTable extends Component {
   componentDidMount() {
 		$('table tbody tr:first td:first').trigger('click');
     this._adjustTable();
-		document.addEventListener('click', this.handleFocus);
     window.addEventListener('resize', this._adjustTable);
     this.refs.body.refs.container.addEventListener('scroll', this._scrollHeader);
     if (this.props.footer) {
@@ -383,7 +380,6 @@ class BootstrapTable extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._adjustTable);
-		document.removeEventListener('click', this.handleFocus);
     if (this.refs && this.refs.body && this.refs.body.refs) {
       this.refs.body.refs.container.removeEventListener('scroll', this._scrollHeader);
       if (this.props.footer) {
@@ -395,17 +391,7 @@ class BootstrapTable extends Component {
     }
   }
 
-	handleFocus = (e) => {
-		if($('table tbody tr td').is(':focus')) {
-			this.setState({ enableColor: true });
-		} else {
-			let table = $('table:visible')[$('table:visible').length -1];
-			if($(table).find('tbody tr').hasClass('rowSelected')) {
-				this.setState({ enableColor: false });
-				this.handleSelectRow(1, false, e);
-			}
-		}
-	}
+
 
   componentDidUpdate() {
     this._adjustTable();
@@ -518,7 +504,6 @@ class BootstrapTable extends Component {
 							style={ { ...style, ...this.props.bodyStyle } }
 							data={ this.state.data }
 							version={ this.props.version }
-							enableColor={this.state.enableColor}
 							expandComponent={ this.props.expandComponent }
 							expandableRow={ this.props.expandableRow }
 							expandRowBgColor={ this.props.options.expandRowBgColor }
