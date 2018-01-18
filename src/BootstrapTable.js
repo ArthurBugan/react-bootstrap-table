@@ -403,7 +403,7 @@ class BootstrapTable extends Component {
 				this.setState(() => {
 					return {
 						selectedRowKeys: [],
-						reset: false
+						reset: true
 					};
 				});
 			}

@@ -873,7 +873,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          this.setState(function () {
 	            return {
 	              selectedRowKeys: [],
-	              reset: false
+	              reset: true
 	            };
 	          });
 	        }
