@@ -21,6 +21,7 @@ class BootstrapTable extends Component {
 
   constructor(props) {
     super(props);
+		this.enableColor;
     this.isIE = false;
     if (Util.canUseDOM()) {
       this.isIE = document.documentMode;
@@ -240,8 +241,7 @@ class BootstrapTable extends Component {
         sizePerPage: Const.SIZE_PER_PAGE_LIST[0],
         selectedRowKeys: [],
         reset: true,
-        oldData: '',
-				enableColor: false
+        oldData: ''
       };
     });
   }
@@ -397,11 +397,11 @@ class BootstrapTable extends Component {
 
 	handleFocus = (e) => {
 		if($('table tbody tr td').is(':focus')) {
-			this.setState({ enableColor: true });
+			this.enableColor = true;
 		} else {
 			let table = $('table:visible')[$('table:visible').length -1];
 			if($(table).find('tbody tr').hasClass('rowSelected')) {
-				this.setState({ enableColor: false });
+				this.enableColor = false;
 			}
 		}
 	}
@@ -514,7 +514,7 @@ class BootstrapTable extends Component {
 						<TableBody ref='body'
 							bodyContainerClass={ this.props.bodyContainerClass }
 							tableBodyClass={ this.props.tableBodyClass }
-							enableColor={this.state.enableColor}
+							enableColor={this.enableColor}
 							style={ { ...style, ...this.props.bodyStyle } }
 							data={ this.state.data }
 							version={ this.props.version }

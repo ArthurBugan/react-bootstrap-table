@@ -342,6 +342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _this.___scrollFooter__REACT_HOT_LOADER__.apply(_this, arguments);
 	    };
 
+	    _this.enableColor;
 	    _this.isIE = false;
 	    if (_util2.default.canUseDOM()) {
 	      _this.isIE = document.documentMode;
@@ -702,8 +703,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          sizePerPage: _Const2.default.SIZE_PER_PAGE_LIST[0],
 	          selectedRowKeys: [],
 	          reset: true,
-	          oldData: '',
-	          enableColor: false
+	          oldData: ''
 	        };
 	      });
 	    }
@@ -868,11 +868,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '__handleFocus__REACT_HOT_LOADER__',
 	    value: function __handleFocus__REACT_HOT_LOADER__(e) {
 	      if ($('table tbody tr td').is(':focus')) {
-	        this.setState({ enableColor: true });
+	        this.enableColor = true;
 	      } else {
 	        var table = $('table:visible')[$('table:visible').length - 1];
 	        if ($(table).find('tbody tr').hasClass('rowSelected')) {
-	          this.setState({ enableColor: false });
+	          this.enableColor = false;
 	        }
 	      }
 	    }
@@ -1008,7 +1008,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2.default.createElement(_TableBody2.default, { ref: 'body',
 	              bodyContainerClass: this.props.bodyContainerClass,
 	              tableBodyClass: this.props.tableBodyClass,
-	              enableColor: this.state.enableColor,
+	              enableColor: this.enableColor,
 	              style: _extends({}, style, this.props.bodyStyle),
 	              data: this.state.data,
 	              version: this.props.version,
