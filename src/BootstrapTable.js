@@ -21,7 +21,6 @@ class BootstrapTable extends Component {
 
   constructor(props) {
     super(props);
-		this.enableColor;
     this.isIE = false;
     if (Util.canUseDOM()) {
       this.isIE = document.documentMode;
@@ -54,6 +53,7 @@ class BootstrapTable extends Component {
       sizePerPage: this.props.options.sizePerPage || Const.SIZE_PER_PAGE_LIST[0],
       selectedRowKeys: this.store.getSelectedRowKeys(),
       reset: false,
+			enableColor: true,
       x: this.props.keyBoardNav ? 0 : -1,
       y: this.props.keyBoardNav ? 0 : -1
     };
@@ -397,11 +397,12 @@ class BootstrapTable extends Component {
 
 	handleFocus = (e) => {
 		if($('table tbody tr td').is(':focus')) {
-			this.enableColor = true;
+			this.setState({ enableColor: true });
 		} else {
 			let table = $('table:visible')[$('table:visible').length -1];
 			if($(table).find('tbody tr').hasClass('rowSelected')) {
-				this.enableColor = false;
+				this.setState({ enableColor: false });
+				this.handleSelectRow(1, false, e);
 			}
 		}
 	}
@@ -514,10 +515,10 @@ class BootstrapTable extends Component {
 						<TableBody ref='body'
 							bodyContainerClass={ this.props.bodyContainerClass }
 							tableBodyClass={ this.props.tableBodyClass }
-							enableColor={this.enableColor}
 							style={ { ...style, ...this.props.bodyStyle } }
 							data={ this.state.data }
 							version={ this.props.version }
+							enableColor={this.state.enableColor}
 							expandComponent={ this.props.expandComponent }
 							expandableRow={ this.props.expandableRow }
 							expandRowBgColor={ this.props.options.expandRowBgColor }
