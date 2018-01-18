@@ -17,26 +17,7 @@ class TableBody extends Component {
     };
 
 		this.handleSelectRow = this.handleSelectRow.bind(this);
-		this.handleFocus = this.handleFocus.bind(this);
   }
-
-	componentDidMount() {
-		document.addEventListener('click', this.handleFocus);
-	}
-
-	componentWillUnmount() {
-		document.removeEventListener('click', this.handleFocus);
-	}
-
-	handleFocus = (e) => {
-		if($('table tbody tr td').is(':focus')) {
-		} else {
-			let table = $('table:visible')[$('table:visible').length -1];
-			if($(table).find('tbody tr').hasClass('rowSelected')) {
-				this.handleSelectRow(1, false, e)
-			}
-		}
-	}
 
   render() {
     const { cellEdit, beforeShowError, x, y, keyBoardNav, trStyle, version } = this.props;

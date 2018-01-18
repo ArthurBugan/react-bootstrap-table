@@ -246,6 +246,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var _this = _possibleConstructorReturn(this, (BootstrapTable.__proto__ || Object.getPrototypeOf(BootstrapTable)).call(this, props));
 
+	    _this.handleFocus = function () {
+	      return _this.__handleFocus__REACT_HOT_LOADER__.apply(_this, arguments);
+	    };
+
 	    _this.handleSort = function () {
 	      return _this.__handleSort__REACT_HOT_LOADER__.apply(_this, arguments);
 	    };
@@ -360,6 +364,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this._adjustHeaderWidth = _this._adjustHeaderWidth.bind(_this);
 	    _this._adjustHeight = _this._adjustHeight.bind(_this);
 	    _this._adjustTable = _this._adjustTable.bind(_this);
+	    _this.handleFocus = _this.handleFocus.bind(_this);
 
 	    _this.state = {
 	      data: _this.getTableData(),
@@ -489,6 +494,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '__handleSort__REACT_HOT_LOADER__',
 	    value: function __handleSort__REACT_HOT_LOADER__() {
 	      return this.__handleSort__REACT_HOT_LOADER__.apply(this, arguments);
+	    }
+	  }, {
+	    key: '__handleFocus__REACT_HOT_LOADER__',
+	    value: function __handleFocus__REACT_HOT_LOADER__() {
+	      return this.__handleFocus__REACT_HOT_LOADER__.apply(this, arguments);
 	    }
 	  }, {
 	    key: 'initTable',
@@ -828,6 +838,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function componentDidMount() {
 	      $('table tbody tr:first td:first').trigger('click');
 	      this._adjustTable();
+	      document.addEventListener('click', this.handleFocus);
 	      window.addEventListener('resize', this._adjustTable);
 	      this.refs.body.refs.container.addEventListener('scroll', this._scrollHeader);
 	      if (this.props.footer) {
@@ -841,6 +852,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      window.removeEventListener('resize', this._adjustTable);
+	      document.removeEventListener('click', this.handleFocus);
 	      if (this.refs && this.refs.body && this.refs.body.refs) {
 	        this.refs.body.refs.container.removeEventListener('scroll', this._scrollHeader);
 	        if (this.props.footer) {
@@ -849,6 +861,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      if (this.filter) {
 	        this.filter.removeAllListeners('onFilterChange');
+	      }
+	    }
+	  }, {
+	    key: '__handleFocus__REACT_HOT_LOADER__',
+	    value: function __handleFocus__REACT_HOT_LOADER__(e) {
+	      if ($('table tbody tr td').is(':focus')) {} else {
+	        var table = $('table:visible')[$('table:visible').length - 1];
+	        if ($(table).find('tbody tr').hasClass('rowSelected')) {
+	          this.store.setSelectedRowKey([]);
+	          this.setState(function () {
+	            return {
+	              selectedRowKeys: [],
+	              reset: false
+	            };
+	          });
+	        }
 	      }
 	    }
 	  }, {
@@ -1066,17 +1094,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (unselectable && match <= unSelectableCnt && unSelectableCnt === unselectable.length) return false;else return 'indeterminate';
 	      }
 	      // return (match === allRowKeys.length) ? true : 'indeterminate';
-	    }
-	  }, {
-	    key: 'cleanSelected',
-	    value: function cleanSelected() {
-	      this.store.setSelectedRowKey([]);
-	      this.setState(function () {
-	        return {
-	          selectedRowKeys: [],
-	          reset: false
-	        };
-	      });
 	    }
 	  }, {
 	    key: 'cleanSort',
@@ -7221,10 +7238,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var _this = _possibleConstructorReturn(this, (TableBody.__proto__ || Object.getPrototypeOf(TableBody)).call(this, props));
 
-	    _this.handleFocus = function () {
-	      return _this.__handleFocus__REACT_HOT_LOADER__.apply(_this, arguments);
-	    };
-
 	    _this.handleCellKeyDown = function () {
 	      return _this.__handleCellKeyDown__REACT_HOT_LOADER__.apply(_this, arguments);
 	    };
@@ -7286,7 +7299,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    _this.handleSelectRow = _this.handleSelectRow.bind(_this);
-	    _this.handleFocus = _this.handleFocus.bind(_this);
 	    return _this;
 	  }
 
@@ -7359,31 +7371,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '__handleCellKeyDown__REACT_HOT_LOADER__',
 	    value: function __handleCellKeyDown__REACT_HOT_LOADER__() {
 	      return this.__handleCellKeyDown__REACT_HOT_LOADER__.apply(this, arguments);
-	    }
-	  }, {
-	    key: '__handleFocus__REACT_HOT_LOADER__',
-	    value: function __handleFocus__REACT_HOT_LOADER__() {
-	      return this.__handleFocus__REACT_HOT_LOADER__.apply(this, arguments);
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      document.addEventListener('click', this.handleFocus);
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      document.removeEventListener('click', this.handleFocus);
-	    }
-	  }, {
-	    key: '__handleFocus__REACT_HOT_LOADER__',
-	    value: function __handleFocus__REACT_HOT_LOADER__(e) {
-	      if ($('table tbody tr td').is(':focus')) {} else {
-	        var table = $('table:visible')[$('table:visible').length - 1];
-	        if ($(table).find('tbody tr').hasClass('rowSelected')) {
-	          this.handleSelectRow(1, false, e);
-	        }
-	      }
 	    }
 	  }, {
 	    key: 'render',

@@ -43,6 +43,7 @@ class BootstrapTable extends Component {
     this._adjustHeaderWidth = this._adjustHeaderWidth.bind(this);
     this._adjustHeight = this._adjustHeight.bind(this);
     this._adjustTable = this._adjustTable.bind(this);
+		this.handleFocus = this.handleFocus.bind(this);
 
     this.state = {
       data: this.getTableData(),
@@ -368,6 +369,7 @@ class BootstrapTable extends Component {
   componentDidMount() {
 		$('table tbody tr:first td:first').trigger('click');
     this._adjustTable();
+		document.addEventListener('click', this.handleFocus);
     window.addEventListener('resize', this._adjustTable);
     this.refs.body.refs.container.addEventListener('scroll', this._scrollHeader);
     if (this.props.footer) {
@@ -380,6 +382,7 @@ class BootstrapTable extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._adjustTable);
+		document.removeEventListener('click', this.handleFocus);
     if (this.refs && this.refs.body && this.refs.body.refs) {
       this.refs.body.refs.container.removeEventListener('scroll', this._scrollHeader);
       if (this.props.footer) {
@@ -390,6 +393,22 @@ class BootstrapTable extends Component {
       this.filter.removeAllListeners('onFilterChange');
     }
   }
+
+	handleFocus = (e) => {
+		if($('table tbody tr td').is(':focus')) {
+		} else {
+			let table = $('table:visible')[$('table:visible').length -1];
+			if($(table).find('tbody tr').hasClass('rowSelected')) {
+				this.store.setSelectedRowKey([]);
+				this.setState(() => {
+					return {
+						selectedRowKeys: [],
+						reset: false
+					};
+				});
+			}
+		}
+	}
 
   componentDidUpdate() {
     this._adjustTable();
@@ -587,16 +606,6 @@ class BootstrapTable extends Component {
       else return 'indeterminate';
     }
     // return (match === allRowKeys.length) ? true : 'indeterminate';
-  }
-
-  cleanSelected() {
-    this.store.setSelectedRowKey([]);
-    this.setState(() => {
-      return {
-        selectedRowKeys: [],
-        reset: false
-      };
-    });
   }
 
   cleanSort() {
