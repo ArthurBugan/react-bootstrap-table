@@ -702,7 +702,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          sizePerPage: _Const2.default.SIZE_PER_PAGE_LIST[0],
 	          selectedRowKeys: [],
 	          reset: true,
-	          oldData: ''
+	          oldData: '',
+	          enableColor: false
 	        };
 	      });
 	    }
@@ -866,17 +867,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleFocus__REACT_HOT_LOADER__',
 	    value: function __handleFocus__REACT_HOT_LOADER__(e) {
-	      if ($('table tbody tr td').is(':focus')) {} else {
+	      if ($('table tbody tr td').is(':focus')) {
+	        this.setState({ enableColor: true });
+	      } else {
 	        var table = $('table:visible')[$('table:visible').length - 1];
 	        if ($(table).find('tbody tr').hasClass('rowSelected')) {
-	          console.log('HandleFOco');
-	          this.store.setSelectedRowKey([]);
-	          this.setState(function () {
-	            return {
-	              selectedRowKeys: [],
-	              reset: true
-	            };
-	          });
+	          this.setState({ enableColor: false });
 	        }
 	      }
 	    }
@@ -1012,6 +1008,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2.default.createElement(_TableBody2.default, { ref: 'body',
 	              bodyContainerClass: this.props.bodyContainerClass,
 	              tableBodyClass: this.props.tableBodyClass,
+	              enableColor: this.state.enableColor,
 	              style: _extends({}, style, this.props.bodyStyle),
 	              data: this.state.data,
 	              version: this.props.version,
@@ -7513,7 +7510,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var key = data[this.props.keyField];
 	        var disable = unselectable.indexOf(key) !== -1;
-	        console.log(this.props.selectedRowKeys);
 	        var selected = this.props.selectedRowKeys.indexOf(key) !== -1;
 	        var selectRowColumn = isSelectRowDefined && !this.props.selectRow.hideSelectColumn ? this.renderSelectRowColumn(selected, inputType, disable, CustomComponent, r, data) : null;
 	        var expandedRowColumn = this.renderExpandRowColumn(this.props.expandableRow && this.props.expandableRow(data), this.props.expanding.indexOf(key) > -1, ExpandColumnCustomComponent, r);
@@ -7532,7 +7528,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (tableColumns.findIndex(function (column) {
 	          return column.props.isFocus !== false;
 	        }) !== -1) {
-	          trClassName += ' rowSelected ';
+	          if (this.props.enableColor) {
+	            trClassName += ' rowSelected ';
+	          }
 	        }
 
 	        var result = [_react2.default.createElement(

@@ -60,7 +60,6 @@ class TableBody extends Component {
     let tableRows = this.props.data.map(function(data, r) {
       const tableColumns = this.props.columns.filter(_ => _ != null).map(function(column, i) {
         const fieldValue = data[column.name];
-				console.log(r, y, i, x);
         const isFocusCell = r === y && i === x;
         if (column.name !== this.props.keyField && // Key field can't be edit
           column.editable && // column is editable? default is true, user can set it false
@@ -163,8 +162,6 @@ class TableBody extends Component {
       const key = data[this.props.keyField];
       const disable = unselectable.indexOf(key) !== -1;
       const selected = this.props.selectedRowKeys.indexOf(key) !== -1;
-			console.log(this.props.selectedRowKeys)
-			console.log(selected);
       const selectRowColumn = isSelectRowDefined && !this.props.selectRow.hideSelectColumn ?
         this.renderSelectRowColumn(selected, inputType, disable, CustomComponent, r, data) : null;
       const expandedRowColumn = this.renderExpandRowColumn(
@@ -189,7 +186,9 @@ class TableBody extends Component {
       if(tableColumns.findIndex((column) => {
 				return column.props.isFocus !== false
 			}) !== -1 ) {
-        trClassName += ' rowSelected ';
+				if(this.props.enableColor) {
+					trClassName += ' rowSelected ';
+				}
       }
 
       const result = [
