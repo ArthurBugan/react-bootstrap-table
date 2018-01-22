@@ -7367,11 +7367,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleFocus__REACT_HOT_LOADER__',
 	    value: function __handleFocus__REACT_HOT_LOADER__(e) {
-	      if ($('table tbody tr td').is(':focus')) {
+	      var table = $('table:visible')[$('table:visible').length - 1];
+	      if ($(table).is(':focus')) {
 	        this.setState({ enableColor: true });
 	      } else {
-	        var table = $('table:visible')[$('table:visible').length - 1];
-	        if ($(table).find('tbody tr').hasClass('rowSelected')) {
+	        var _table = $('table:visible')[$('table:visible').length - 1];
+	        if ($(_table).find('tbody tr').hasClass('rowSelected')) {
 	          this.setState({ enableColor: false });
 	          this.handleSelectRow(1, false, e);
 	        }
