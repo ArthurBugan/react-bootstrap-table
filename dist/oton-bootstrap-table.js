@@ -7368,7 +7368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '__handleFocus__REACT_HOT_LOADER__',
 	    value: function __handleFocus__REACT_HOT_LOADER__(e) {
 	      var table = $('table:visible')[$('table:visible').length - 1];
-	      if ($(table).is(':focus')) {
+	      if ($(table).find('tbody tr td').is(':focus')) {
 	        this.setState({ enableColor: true });
 	      } else {
 	        var _table = $('table:visible')[$('table:visible').length - 1];

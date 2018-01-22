@@ -31,7 +31,7 @@ class TableBody extends Component {
 
 	handleFocus = (e) => {
 		let table = $('table:visible')[$('table:visible').length -1];
-		if($(table).is(':focus')) {
+		if($(table).find('tbody tr td').is(':focus')) {
 			this.setState({ enableColor: true })
 		} else {
 			let table = $('table:visible')[$('table:visible').length -1];
