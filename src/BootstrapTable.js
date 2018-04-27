@@ -391,8 +391,6 @@ class BootstrapTable extends Component {
     }
   }
 
-
-
   componentDidUpdate() {
     this._adjustTable();
     if (this.props.options.afterTableComplete) {
@@ -504,6 +502,7 @@ class BootstrapTable extends Component {
 							style={ { ...style, ...this.props.bodyStyle } }
 							data={ this.state.data }
 							version={ this.props.version }
+							id={this.props.id}
 							expandComponent={ this.props.expandComponent }
 							expandableRow={ this.props.expandableRow }
 							expandRowBgColor={ this.props.options.expandRowBgColor }

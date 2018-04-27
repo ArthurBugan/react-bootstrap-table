@@ -9,6 +9,8 @@ import TableEditColumn from './TableEditColumn';
 import classSet from 'classnames';
 import ExpandComponent from './ExpandComponent';
 
+let timer;
+
 class TableBody extends Component {
   constructor(props) {
     super(props);
@@ -21,22 +23,41 @@ class TableBody extends Component {
   }
 
 	componentDidMount() {
-		document.addEventListener('click', this.handleFocus);
+		const el = document.getElementById(this.props.id);
+		if (el !== null) {
+			el.addEventListener('click', this.handleFocus);
+			$(el).on('focusout', () => {
+				timer = setTimeout(() => {
+					if (!$(el).find('tbody tr td').is(':focus')) {
+						$(el).find('tbody tr').removeClass('rowSelected');
+					}
+				}, 500)
+			})
+		} else {
+			console.error('A table needs its id!');
+		}
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', this.handleFocus);
+		const el = document.getElementById(this.props.id);
+		if (el !== null) {
+			el.removeEventListener('click', this.handleFocus);
+		}
 	}
 
 
 	handleFocus = (e) => {
-		let table = $('table:visible')[$('table:visible').length -1];
+		console.log('Focus');
+		console.log(this.props.id);
+		let table = document.getElementById(this.props.id);
 		if($(table).find('tbody tr td').is(':focus')) {
-			this.setState({ enableColor: true })
+			this.setState({ enableColor: true });
+			console.log('IF');
 		} else {
-			let table = $('table:visible')[$('table:visible').length -1];
+			let table = document.getElementById(this.props.id);
+			console.log('Else');
 			if($(table).find('tbody tr').hasClass('rowSelected')) {
-				this.setState({ enableColor: false })
+				this.setState({ enableColor: false });
 				this.handleSelectRow(1, false, e);
 			}
 		}
@@ -282,7 +303,7 @@ class TableBody extends Component {
       <div ref='container'
         className={ classSet('react-bs-container-body', this.props.bodyContainerClass) }
         style={ this.props.style }>
-        <table className={ tableClasses }>
+        <table className={ tableClasses } id={this.props.id} >
           { React.cloneElement(tableHeader, { ref: 'header' }) }
           <tbody ref='tbody'>
             { tableRows }
