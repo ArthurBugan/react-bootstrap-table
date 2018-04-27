@@ -765,7 +765,6 @@ class BootstrapTable extends Component {
         x, y, currPage: flag === true ? currPage === -1 ? 1 : currPage : this.state.currPage, reset: false
       };
     }, () => {
-
         if(flag === true) {
           this.handleRowClick(this.state.data[y], y, x, e);
           this.handleSelectRow(this.state.data[y], true, e, y);
@@ -902,7 +901,6 @@ class BootstrapTable extends Component {
 			if (selectRow.onSelect) {
 				result = selectRow.onSelect(row, isSelected, e, rowIndex);
 			}
-
 			if (typeof skip !== 'undefined' && !skip) {
 				if (typeof result === 'undefined' || result !== false) {
 					if (selectRow.mode === Const.ROW_SELECT_SINGLE) {

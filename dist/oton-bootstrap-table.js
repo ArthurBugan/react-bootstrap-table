@@ -1284,7 +1284,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          x: x, y: y, currPage: flag === true ? currPage === -1 ? 1 : currPage : _this6.state.currPage, reset: false
 	        };
 	      }, function () {
-
 	        if (flag === true) {
 	          _this6.handleRowClick(_this6.state.data[y], y, x, e);
 	          _this6.handleSelectRow(_this6.state.data[y], true, e, y);
@@ -1443,7 +1442,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (selectRow.onSelect) {
 	        result = selectRow.onSelect(row, isSelected, e, rowIndex);
 	      }
-
 	      if (typeof skip !== 'undefined' && !skip) {
 	        if (typeof result === 'undefined' || result !== false) {
 	          if (selectRow.mode === _Const2.default.ROW_SELECT_SINGLE) {
@@ -7277,6 +7275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      currEditCell: null,
 	      enableColor: true
 	    };
+	    _this.canFocus = true;
 	    _this.handleFocus = _this.handleFocus.bind(_this);
 	    _this.handleSelectRow = _this.handleSelectRow.bind(_this);
 	    return _this;
@@ -7360,6 +7359,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var _this2 = this;
+
 	      var el = document.getElementById(this.props.id);
 	      if (el !== null) {
 	        el.addEventListener('click', this.handleFocus);
@@ -7367,11 +7368,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          timer = setTimeout(function () {
 	            if (!$(el).find('tbody tr td').is(':focus')) {
 	              $(el).find('tbody tr').removeClass('rowSelected');
+	              _this2.canFocus = false;
 	            }
 	          }, 500);
 	        });
 	      } else {
 	        console.error('A table needs its id!');
+	        console.log(el);
 	      }
 	    }
 	  }, {
@@ -7385,15 +7388,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '__handleFocus__REACT_HOT_LOADER__',
 	    value: function __handleFocus__REACT_HOT_LOADER__(e) {
-	      console.log('Focus');
-	      console.log(this.props.id);
 	      var table = document.getElementById(this.props.id);
 	      if ($(table).find('tbody tr td').is(':focus')) {
 	        this.setState({ enableColor: true });
-	        console.log('IF');
+	        this.canFocus = true;
 	      } else {
 	        var _table = document.getElementById(this.props.id);
-	        console.log('Else');
 	        if ($(_table).find('tbody tr').hasClass('rowSelected')) {
 	          this.setState({ enableColor: false });
 	          this.handleSelectRow(1, false, e);
@@ -7449,7 +7449,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return _ != null;
 	        }).map(function (column, i) {
 	          var fieldValue = data[column.name];
-	          var isFocusCell = r === y && i === x;
+	          var isFocusCell = r === y && i === x && this.canFocus;
 	          if (column.name !== this.props.keyField && // Key field can't be edit
 	          column.editable && // column is editable? default is true, user can set it false
 	          column.editable.readOnly !== true && this.state.currEditCell !== null && this.state.currEditCell.rid === r && this.state.currEditCell.cid === i && noneditableRows.indexOf(data[this.props.keyField]) === -1) {
@@ -7558,7 +7558,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (tableColumns.findIndex(function (column) {
 	          return column.props.isFocus !== false;
 	        }) !== -1) {
-	          if (this.state.enableColor) trClassName += ' rowSelected ';
+	          if (this.state.enableColor) {
+	            trClassName += ' rowSelected ';
+	          }
 	        }
 
 	        var result = [_react2.default.createElement(
@@ -7897,7 +7899,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function renderSelectRowColumn(selected, inputType, disabled) {
 	      var CustomComponent = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      var rowIndex = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
 	      var row = arguments[5];
@@ -7905,22 +7907,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2.default.createElement(
 	        'td',
 	        { onClick: function onClick(e) {
-	            _this2.handleClickonSelectColumn(e, !selected, rowIndex, row);
+	            _this3.handleClickonSelectColumn(e, !selected, rowIndex, row);
 	          }, style: { textAlign: 'center' } },
 	        CustomComponent ? _react2.default.createElement(CustomComponent, { type: inputType, checked: selected, disabled: disabled,
 	          rowIndex: rowIndex,
 	          onChange: function onChange(e) {
-	            return _this2.handleSelectRowColumChange(e, rowIndex);
+	            return _this3.handleSelectRowColumChange(e, rowIndex);
 	          } }) : _react2.default.createElement('input', { type: inputType, checked: selected, disabled: disabled,
 	          onChange: function onChange(e) {
-	            return _this2.handleSelectRowColumChange(e, rowIndex);
+	            return _this3.handleSelectRowColumChange(e, rowIndex);
 	          } })
 	      );
 	    }
 	  }, {
 	    key: 'renderExpandRowColumn',
 	    value: function renderExpandRowColumn(isExpandableRow, isExpanded, CustomComponent) {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      var rowIndex = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
@@ -7938,7 +7940,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        {
 	          className: 'react-bs-table-expand-cell',
 	          onClick: function onClick() {
-	            return _this3.handleClickCell(rowIndex + 1);
+	            return _this4.handleClickCell(rowIndex + 1);
 	          } },
 	        content
 	      );

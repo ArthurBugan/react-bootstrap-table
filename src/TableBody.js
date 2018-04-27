@@ -18,6 +18,7 @@ class TableBody extends Component {
       currEditCell: null,
 			enableColor: true
     };
+		this.canFocus = true;
 		this.handleFocus = this.handleFocus.bind(this);
 		this.handleSelectRow = this.handleSelectRow.bind(this);
   }
@@ -30,11 +31,13 @@ class TableBody extends Component {
 				timer = setTimeout(() => {
 					if (!$(el).find('tbody tr td').is(':focus')) {
 						$(el).find('tbody tr').removeClass('rowSelected');
+						this.canFocus = false;
 					}
 				}, 500)
 			})
 		} else {
 			console.error('A table needs its id!');
+			console.log(el);
 		}
 	}
 
@@ -47,15 +50,12 @@ class TableBody extends Component {
 
 
 	handleFocus = (e) => {
-		console.log('Focus');
-		console.log(this.props.id);
 		let table = document.getElementById(this.props.id);
 		if($(table).find('tbody tr td').is(':focus')) {
 			this.setState({ enableColor: true });
-			console.log('IF');
+			this.canFocus = true;
 		} else {
 			let table = document.getElementById(this.props.id);
-			console.log('Else');
 			if($(table).find('tbody tr').hasClass('rowSelected')) {
 				this.setState({ enableColor: false });
 				this.handleSelectRow(1, false, e);
@@ -104,7 +104,7 @@ class TableBody extends Component {
     let tableRows = this.props.data.map(function(data, r) {
       const tableColumns = this.props.columns.filter(_ => _ != null).map(function(column, i) {
         const fieldValue = data[column.name];
-        const isFocusCell = r === y && i === x;
+        const isFocusCell = (r === y && i === x) && (this.canFocus);
         if (column.name !== this.props.keyField && // Key field can't be edit
           column.editable && // column is editable? default is true, user can set it false
           column.editable.readOnly !== true &&
@@ -230,8 +230,9 @@ class TableBody extends Component {
       if(tableColumns.findIndex((column) => {
 				return column.props.isFocus !== false
 			}) !== -1 ) {
-				if(this.state.enableColor)
-				trClassName += ' rowSelected ';
+				if(this.state.enableColor) {
+					trClassName += ' rowSelected ';
+				}
       }
 
       const result = [

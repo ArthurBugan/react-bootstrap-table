@@ -30,31 +30,6 @@ class Demo extends React.Component {
           <SimpleNavTable id="table1" />
         </Panel>
 
-				<Panel header={ 'A Simple Keyboard Navigation Table' }>
-					{ renderLinks('keyboard-nav/simple-nav-table.js') }
-					<span>
-						Default navigation is click on cell and keyborad tab or navigation(left/right/up/down)
-					</span>
-					<SimpleNavTable id="table2" />
-				</Panel>
-
-
-				<Panel header={ 'A Simple Keyboard Navigation Table' }>
-					{ renderLinks('keyboard-nav/simple-nav-table.js') }
-					<span>
-						Default navigation is click on cell and keyborad tab or navigation(left/right/up/down)
-					</span>
-					<SimpleNavTable id="table3" />
-				</Panel>
-
-				<Panel header={ 'A Simple Keyboard Navigation Table' }>
-					{ renderLinks('keyboard-nav/simple-nav-table.js') }
-					<span>
-						Default navigation is click on cell and keyborad tab or navigation(left/right/up/down)
-					</span>
-					<SimpleNavTable id="table4" />
-				</Panel>
-
 				<a
 					href="#modalTable"
 					data-toggle="modal"
