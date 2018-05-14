@@ -27,10 +27,11 @@ class TableBody extends Component {
 		const el = document.getElementById(this.props.id);
 		if (el !== null) {
 			el.addEventListener('click', this.handleFocus);
-			$(el).on('focusout', () => {
+			$(el).on('focusout', (e) => {
 				timer = setTimeout(() => {
 					if (!$(el).find('tbody tr td').is(':focus')) {
 						$(el).find('tbody tr').removeClass('rowSelected');
+						this.handleSelectRow(1, false, e)
 						this.canFocus = false;
 					}
 				}, 500)

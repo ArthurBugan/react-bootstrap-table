@@ -7364,10 +7364,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var el = document.getElementById(this.props.id);
 	      if (el !== null) {
 	        el.addEventListener('click', this.handleFocus);
-	        $(el).on('focusout', function () {
+	        $(el).on('focusout', function (e) {
 	          timer = setTimeout(function () {
 	            if (!$(el).find('tbody tr td').is(':focus')) {
 	              $(el).find('tbody tr').removeClass('rowSelected');
+	              _this2.handleSelectRow(1, false, e);
 	              _this2.canFocus = false;
 	            }
 	          }, 500);
