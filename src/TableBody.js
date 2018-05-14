@@ -30,9 +30,9 @@ class TableBody extends Component {
 			$(el).on('focusout', (e) => {
 				timer = setTimeout(() => {
 					if (!$(el).find('tbody tr td').is(':focus')) {
+						this.canFocus = false;
 						$(el).find('tbody tr').removeClass('rowSelected');
 						this.handleSelectRow(1, false, e)
-						this.canFocus = false;
 					}
 				}, 500)
 			})
@@ -105,7 +105,7 @@ class TableBody extends Component {
     let tableRows = this.props.data.map(function(data, r) {
       const tableColumns = this.props.columns.filter(_ => _ != null).map(function(column, i) {
         const fieldValue = data[column.name];
-        const isFocusCell = (r === y && i === x) && (this.canFocus);
+        const isFocusCell = (r === y && i === x) && (this.canFocus === true);
         if (column.name !== this.props.keyField && // Key field can't be edit
           column.editable && // column is editable? default is true, user can set it false
           column.editable.readOnly !== true &&

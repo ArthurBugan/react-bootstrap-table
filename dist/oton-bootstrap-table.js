@@ -7367,9 +7367,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        $(el).on('focusout', function (e) {
 	          timer = setTimeout(function () {
 	            if (!$(el).find('tbody tr td').is(':focus')) {
+	              _this2.canFocus = false;
 	              $(el).find('tbody tr').removeClass('rowSelected');
 	              _this2.handleSelectRow(1, false, e);
-	              _this2.canFocus = false;
 	            }
 	          }, 500);
 	        });
@@ -7450,7 +7450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return _ != null;
 	        }).map(function (column, i) {
 	          var fieldValue = data[column.name];
-	          var isFocusCell = r === y && i === x && this.canFocus;
+	          var isFocusCell = r === y && i === x && this.canFocus === true;
 	          if (column.name !== this.props.keyField && // Key field can't be edit
 	          column.editable && // column is editable? default is true, user can set it false
 	          column.editable.readOnly !== true && this.state.currEditCell !== null && this.state.currEditCell.rid === r && this.state.currEditCell.cid === i && noneditableRows.indexOf(data[this.props.keyField]) === -1) {
@@ -8415,6 +8415,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
 	      var dom = _reactDom2.default.findDOMNode(this);
+	      console.log(this.props.isFocus);
 	      if (this.props.isFocus) {
 	        dom.focus();
 	      } else {
