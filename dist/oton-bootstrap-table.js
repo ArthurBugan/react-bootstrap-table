@@ -8415,7 +8415,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
 	      var dom = _reactDom2.default.findDOMNode(this);
-	      console.log(this.props.isFocus);
 	      if (this.props.isFocus) {
 	        dom.focus();
 	      } else {

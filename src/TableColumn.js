@@ -61,7 +61,6 @@ class TableColumn extends Component {
 
   componentDidUpdate() {
     const dom = ReactDOM.findDOMNode(this);
-		console.log(this.props.isFocus);
     if (this.props.isFocus) {
       dom.focus();
     } else {
